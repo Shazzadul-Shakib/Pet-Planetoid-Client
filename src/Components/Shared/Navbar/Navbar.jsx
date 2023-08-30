@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className=" bg-[#FF6666] text-white p-2">
           {/* Nav items */}
           <div>
-            <ul className=" md:flex justify-evenly">
+            <ul className=" hidden md:flex justify-evenly">
               {navItems.map((navItem) => (
                 <li className=" py-2 hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
                   <Link to={navItem.path}>{navItem.name}</Link>
