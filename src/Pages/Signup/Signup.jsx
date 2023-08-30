@@ -1,16 +1,18 @@
 import { Helmet } from "react-helmet-async";
 import signup from "../../assets/signup.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Signup = () => {
+  const navigate=useNavigate();
+  const location =useLocation();
+  // from is if there is any state that should go or it willredirect to home page
+  const from = location.state?.from?.pathname || "/";
 
-  const {createUser}=useContext(AuthContext);
-
-  
+  const { createUser, updateUserName } = useContext(AuthContext);
 
   // Form hook
   const {
@@ -19,17 +21,21 @@ const Signup = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    createUser(data.email,data.password)
+
+  const onSubmit = async(data) => {
+    await createUser(data.email,data.password)
     .then(result=>{
-      console.log(result);
+      updateUserName(data.name)
+      .then(()=>{})
+      .catch(()=>{})
+      console.log(result)
       reset();
+      navigate(from, { replace: true });
     })
     .catch(error=>{
       console.log(error.code)
     })
-    
-    
+ 
   };
 
   return (

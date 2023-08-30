@@ -1,14 +1,20 @@
 import { Helmet } from "react-helmet-async";
 import login from '../../assets/Login.svg'
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    // from is if there is any state that should go or it willredirect to home page
+    const from = location.state?.from?.pathname || "/";
+
   // auth context
-  const {loginUserWithEmailPassword}=useContext(AuthContext);
+  const { loginUserWithEmailPassword, googleSignin } = useContext(AuthContext);
 
   // Form hook 
   const {
@@ -21,12 +27,23 @@ const Login = () => {
     loginUserWithEmailPassword(data.email,data.password)
     .then(result=>{
       reset();
+      navigate(from, { replace: true });
       console.log(result);
     })
     .catch(error=>{
-      console.log(error.code);
+      error.code==='auth/wrong-password' && console.log("Wrong password");
     })
   };
+
+  // Handle google sign in 
+  
+  const handleGoogleSignin=()=>{
+    googleSignin()
+    .then(result=>{
+
+    })
+    .catch(error=>{})
+  }
 
 
     return (
@@ -125,8 +142,12 @@ const Login = () => {
                   Register here
                 </Link>
               </p>
-              <button className="mt-6 flex w-full justify-center rounded-md bg-white border-2 border-[#FF6666] px-3 py-3 text-xl font-semibold leading-6 text-[#FF6666] shadow-sm hover:bg-[#FF6666] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                <FcGoogle className=" mr-3 text-2xl" /> Continue with google
+              <button
+                onClick={() => handleGoogleSignin()}
+                className="mt-6 flex w-full justify-center rounded-md bg-white border-2 border-[#FF6666] px-3 py-3 text-xl font-semibold leading-6 text-[#FF6666] shadow-sm hover:bg-[#FF6666] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <FcGoogle className=" mr-3 text-2xl" />
+                Continue with google
               </button>
             </div>
           </div>
