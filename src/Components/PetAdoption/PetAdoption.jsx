@@ -15,7 +15,7 @@ const PetAdoption = () => {
             <h2 className=" text-3xl text-[#FF8989] font-semibold">
               Cat Adoption Articles
             </h2>
-            <p className=" text-sm">Learn more about cats before have a cat.</p>
+            <p className=" text-sm mt-2">Learn more about cats before have a cat.</p>
           </div>
           <div className="text-center py-3 text-white bg-[#FF8989] rounded-lg">
             <Link>Read More</Link>
@@ -30,7 +30,7 @@ const PetAdoption = () => {
             <h2 className=" text-3xl text-[#FF8989] font-semibold">
               Dog Adoption Articles
             </h2>
-            <p className=" text-sm">Learn more about dogs before have a dog.</p>
+            <p className=" text-sm mt-2">Learn more about dogs before have a dog.</p>
           </div>
           <div className="text-center py-3 text-white bg-[#FF8989] rounded-lg">
             <Link>Read More</Link>

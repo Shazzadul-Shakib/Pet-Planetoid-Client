@@ -4,6 +4,7 @@ import Main from "../Layout/Main";
 import Login from "../Pages/Login/Login";
 import PetWorld from "../Pages/PetWorld/PetWorld";
 import ShelterRescue from "../Pages/Shelter&Rescue/ShelterRescue";
+import Signup from "../Pages/Signup/Signup";
 
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
     ],
   },
