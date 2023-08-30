@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import cover from '../../../assets/cover2.png'
 import Iconbar from "../../../Components/Iconbar/Iconbar";
+import Availablepets from "../../../Components/Availablepets/Availablepets";
 
 const Home = () => {
     return (
@@ -30,7 +31,16 @@ const Home = () => {
 
         {/* Icon bar section */}
         <div className=" w-4/5 my-10 mx-auto grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-4 place-items-center md:max-w-screen-lg md:mx-auto">
-         <Iconbar/>
+          <Iconbar />
+        </div>
+
+        {/* Available pet sectioon */}
+        <div>
+          {/* Headers */}
+          <h1 className="text-4xl text-center text-[#FF6666]">
+            Most Popular Pets are here!
+          </h1>
+          <Availablepets />
         </div>
       </div>
     );
