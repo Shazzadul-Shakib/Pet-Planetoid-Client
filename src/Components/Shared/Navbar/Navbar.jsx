@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../../../../src/assets/logo.svg'
+import { useContext } from 'react';
+import { AuthContext } from '../../../Providers/AuthProvider';
 
 const navItems=[
     {
@@ -14,14 +16,21 @@ const navItems=[
         name:'Shelters & Rescues',
         path:'/shelters&rescues'
     },
-    {
-        name:'Login',
-        path:'/login'
-    },
+
 ]
 
 const Navbar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+  if(user){
+    console.log(user);
+  }
 
+  // Handle logout 
+  const handleLogout=()=>{
+    logoutUser()
+    .then(()=>{})
+    .catch(()=>{})
+  }
 
     return (
       <>
@@ -40,6 +49,15 @@ const Navbar = () => {
                   <Link to={navItem.path}>{navItem.name}</Link>
                 </li>
               ))}
+              {user ? (
+                <li className=" py-2 border-2 border-white md:py-2 px-4 rounded-md">
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              ) : (
+                <li className=" py-2 hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
+                  <Link to="/login">Login</Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

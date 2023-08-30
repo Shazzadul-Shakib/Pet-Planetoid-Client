@@ -3,8 +3,13 @@ import login from '../../assets/Login.svg'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
+  // auth context
+  const {loginUserWithEmailPassword}=useContext(AuthContext);
+
   // Form hook 
   const {
     register,
@@ -13,8 +18,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    reset();
-    console.log(data);
+    loginUserWithEmailPassword(data.email,data.password)
+    .then(result=>{
+      reset();
+      console.log(result);
+    })
+    .catch(error=>{
+      console.log(error.code);
+    })
   };
 
 
@@ -56,7 +67,7 @@ const Login = () => {
                       type="email"
                       required
                       autoComplete="email"
-                      className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gra focus:outline-[#FF6666] sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gray-300 focus:outline-[#FF6666] sm:text-sm sm:leading-6"
                     />
                     {/* Error message will be shown here */}
                     {errors.email && (
@@ -100,7 +111,7 @@ const Login = () => {
                   <input
                     type="submit"
                     value="Login"
-                    className="flex w-full justify-center rounded-md bg-[#FF6666] px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-white hover:text-[#FF6666] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex w-full justify-center rounded-md bg-[#FF6666] px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm border-2 border-[#FF6666] hover:bg-white hover:text-[#FF6666] "
                   />
                 </div>
               </form>
