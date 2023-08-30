@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import cover from '../../../assets/cover2.png'
 import Iconbar from "../../../Components/Iconbar/Iconbar";
 import Availablepets from "../../../Components/Availablepets/Availablepets";
+import PetAdoption from "../../../Components/PetAdoption/PetAdoption";
 
 const Home = () => {
     return (
@@ -41,6 +42,15 @@ const Home = () => {
             Most Popular Pets are here!
           </h1>
           <Availablepets />
+        </div>
+
+        {/* Pet adoption article section */}
+        <div>
+          {/* Headers */}
+          <h1 className="text-4xl text-center text-[#FF6666]">
+            Read Articles to know more about pet!
+          </h1>
+          <PetAdoption/>
         </div>
       </div>
     );
