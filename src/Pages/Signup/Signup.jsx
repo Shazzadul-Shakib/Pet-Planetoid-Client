@@ -7,12 +7,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Signup = () => {
-  const navigate=useNavigate();
-  const location =useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   // from is if there is any state that should go or it willredirect to home page
   const from = location.state?.from?.pathname || "/";
 
-  const { createUser, updateUserName } = useContext(AuthContext);
+  const { createUser, updateUserName, googleSignin } = useContext(AuthContext);
 
   // Form hook
   const {
@@ -22,20 +22,28 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
-    await createUser(data.email,data.password)
-    .then(result=>{
-      updateUserName(data.name)
-      .then(()=>{})
-      .catch(()=>{})
-      console.log(result)
-      reset();
-      navigate(from, { replace: true });
-    })
-    .catch(error=>{
-      console.log(error.code)
-    })
- 
+  const onSubmit = async (data) => {
+    await createUser(data.email, data.password)
+      .then((result) => {
+        updateUserName(data.name)
+          .then(() => {})
+          .catch(() => {});
+        console.log(result);
+        reset();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
+  };
+
+  // // Handle google sign in
+  const handleGoogleSignin = () => {
+    googleSignin()
+      .then((result) => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {});
   };
 
   return (
@@ -153,7 +161,10 @@ const Signup = () => {
                 Login here
               </Link>
             </p>
-            <button className="mt-6 flex w-full justify-center rounded-md bg-white border-2 border-[#FF6666] px-3 py-3 text-xl font-semibold leading-6 text-[#FF6666] shadow-sm hover:bg-[#FF6666] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <button
+              onClick={() => handleGoogleSignin()}
+              className="mt-6 flex w-full justify-center rounded-md bg-white border-2 border-[#FF6666] px-3 py-3 text-xl font-semibold leading-6 text-[#FF6666] shadow-sm hover:bg-[#FF6666] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
               <FcGoogle className=" mr-3 text-2xl" /> Continue with google
             </button>
           </div>

@@ -36,10 +36,10 @@ const Login = () => {
   };
 
   // Handle google sign in 
-  
   const handleGoogleSignin=()=>{
     googleSignin()
     .then(result=>{
+      navigate(from, { replace: true });
 
     })
     .catch(error=>{})
