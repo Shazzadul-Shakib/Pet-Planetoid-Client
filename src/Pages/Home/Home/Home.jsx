@@ -17,12 +17,12 @@ const Home = () => {
           {/* cover photo of hero section */}
           <img src={cover} alt="" className=" w-full" />
           {/* Headings of hero section */}
-          <div className=" absolute top-6 left-10  md:top-36 md:left-1/3 text-white text-center ">
+          <div className=" absolute top-6 left-10  md:top-1/3 md:left-1/3 text-white text-center ">
             <div>
               <h1 className="  text-xl md:text-6xl">
                 Find your new best friend
               </h1>
-              <p className="text-[#FCAEAE] text-sm mt-2 md:text-xl md:mt-6">
+              <p className="  mt-2 md:text-2xl md:mt-6">
                 The largest online pet adoption website serving all of
                 Bangladesh.
               </p>

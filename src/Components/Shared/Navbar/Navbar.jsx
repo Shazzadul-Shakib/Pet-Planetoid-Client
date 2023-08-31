@@ -45,16 +45,16 @@ const Navbar = () => {
           <div>
             <ul className=" hidden md:flex justify-evenly">
               {navItems.map((navItem) => (
-                <li className=" py-2 hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
+                <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
                   <Link to={navItem.path}>{navItem.name}</Link>
                 </li>
               ))}
               {user ? (
-                <li className=" py-2 border-2 border-white md:py-2 px-4 rounded-md">
+                <li className=" py-2 text-lg border-2 border-white md:py-2 px-4 rounded-md">
                   <button onClick={handleLogout}>Logout</button>
                 </li>
               ) : (
-                <li className=" py-2 hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
+                <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
                   <Link to="/login">Login</Link>
                 </li>
               )}
