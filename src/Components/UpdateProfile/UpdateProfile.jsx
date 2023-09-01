@@ -41,16 +41,6 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
     }
   };
 
-  // useEffect(() => {
-  //   // Add the 'modal-open' class to the body when the modal is open
-  //   document.body.classList.toggle("modal-open", openModal);
-
-  //   // Remove the class when the component unmounts
-  //   return () => {
-  //     document.body.classList.remove("modal-open");
-  //   };
-  // }, [openModal]);
-
   return (
     <div className=" fixed inset-0 z-50 bg-slate-600 bg-opacity-40 backdrop-blur-md overflow-hidden">
       <form
@@ -95,6 +85,10 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
               defaultValue={user?.displayName}
               className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gray-300 focus:outline-[#FF6666] sm:text-sm sm:leading-6"
             />
+            {/* Error message will be shown here */}
+            {errors.name && (
+              <span className=" text-red-600">Name is required*</span>
+            )}
           </div>
         </div>
         {/* PhotoUrl box */}
@@ -114,6 +108,10 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
               type="file"
               className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gray-300 focus:outline-[#FF6666] sm:text-sm sm:leading-6"
             />
+            {/* Error message will be shown here */}
+            {errors.image && (
+              <span className=" text-red-600">Image is required*</span>
+            )}
           </div>
         </div>
 

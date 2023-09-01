@@ -4,18 +4,22 @@ import profile from '../../../assets/profile.jpg'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import UpdateProfile from '../../UpdateProfile/UpdateProfile';
+import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 
 const navItems=[
     {
-        name:'Home',
+      id:'1',  
+      name:'Home',
         path:'/'
     },
     {
-        name:'Pet World',
+      id:'2',  
+      name:'Pet World',
         path:'/petworld'
     },
     {
-        name:'Shelters & Rescues',
+      id:'3',  
+      name:'Shelters & Rescues',
         path:'/shelters&rescues'
     },
 
@@ -49,26 +53,57 @@ const Navbar = () => {
     .catch(()=>{})
   }
 
+
+  // Toggle hamburger menu
+  const [openMenu, setOpenMenu] = useState(false);
+  const [prebMenu,setPrevMenu]=useState(null);
+
+  const toggleMenu=()=>{
+    setPrevMenu(openMenu);
+    setOpenMenu(!openMenu);
+  }
+
+
   // Open modal
   const [openModal, setOpenModal]=useState(false);
 
     return (
       <>
         {openModal && (
-          <UpdateProfile className='overflow-hidden' setOpenModal={setOpenModal} openModal={openModal} />
+          <UpdateProfile
+            className="overflow-hidden"
+            setOpenModal={setOpenModal}
+            openModal={openModal}
+          />
         )}
         {/* Upper section */}
-        <div className=" flex justify-center items-center">
+        <div className=" mx-8 flex justify-between items-center md:justify-center ">
           {/* logo */}
           <img src={logo} alt="logo" className=" h-16" />
+          {openMenu ? (
+            <RxCross2 onClick={toggleMenu} className="md:hidden text-4xl" />
+          ) : (
+            <RxHamburgerMenu
+              onClick={toggleMenu}
+              className="md:hidden text-4xl"
+            />
+          )}
         </div>
         {/* Lower section */}
+
         <div className=" bg-[#FF6666] text-white p-2 relative">
           {/* Nav items */}
           <div>
-            <ul className=" hidden md:flex justify-evenly">
+            <ul
+              className={` md:flex justify-evenly ${
+                openMenu ? "block" : "hidden"
+              }`}
+            >
               {navItems.map((navItem) => (
-                <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
+                <li
+                  key={navItem.id}
+                  className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md"
+                >
                   <Link to={navItem.path}>{navItem.name}</Link>
                 </li>
               ))}
@@ -76,7 +111,7 @@ const Navbar = () => {
                 <li>
                   {user.photoURL ? (
                     <img
-                      className=" h-11 rounded-full"
+                      className=" h-9 ml-4 my-3 md:h-11 md:ml-0 md:my-0 rounded-full"
                       src={user.photoURL}
                       alt="DP"
                       onClick={toggleValue}
@@ -91,9 +126,6 @@ const Navbar = () => {
                   )}
                 </li>
               ) : (
-                // <li >
-                //
-                // </li>
                 <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
                   <Link to="/login">Login</Link>
                 </li>
