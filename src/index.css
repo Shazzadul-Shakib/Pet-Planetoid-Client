@@ -9,3 +9,7 @@
     padding: 8px 16px 8px 16px;
     border-radius: 6px;
 } */
+/* Add this to your CSS file */
+.modal-open {
+  overflow: hidden;
+}

@@ -18,11 +18,19 @@ const AuthProvider = ({children}) => {
         return createUserWithEmailAndPassword(auth,email,password);
     }
 
-    // Update profile with name
+    // add name when signup
     const updateUserName=(name)=>{
         return updateProfile(auth.currentUser, {
           displayName: name
         });
+    }
+
+    // update proile nam and upload photo
+    const updateUserInfo=(name,photo)=>{
+        return updateProfile(auth.currentUser,{
+            displayName:name,
+            photoURL:photo
+        })
     }
 
     // Login user
@@ -63,6 +71,7 @@ const AuthProvider = ({children}) => {
       loginUserWithEmailPassword,
       googleSignin,
       updateUserName,
+      updateUserInfo,
     };
     return (
         <AuthContext.Provider value={authInfo}>

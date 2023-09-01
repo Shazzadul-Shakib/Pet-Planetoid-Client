@@ -51,11 +51,12 @@ const Navbar = () => {
 
   // Open modal
   const [openModal, setOpenModal]=useState(false);
-  console.log(openModal);
 
     return (
       <>
-        {openModal && <UpdateProfile setOpenModal={setOpenModal} />}
+        {openModal && (
+          <UpdateProfile className='overflow-hidden' setOpenModal={setOpenModal} openModal={openModal} />
+        )}
         {/* Upper section */}
         <div className=" flex justify-center items-center">
           {/* logo */}
