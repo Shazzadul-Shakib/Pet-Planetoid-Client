@@ -3,6 +3,7 @@ import logo from '../../../../src/assets/logo.svg'
 import profile from '../../../assets/profile.jpg'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../Providers/AuthProvider';
+import UpdateProfile from '../../UpdateProfile/UpdateProfile';
 
 const navItems=[
     {
@@ -22,9 +23,6 @@ const navItems=[
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
-  if(user){
-    console.log(user);
-  }
 
   // Navigate after logout 
   const navigate = useNavigate();
@@ -51,8 +49,13 @@ const Navbar = () => {
     .catch(()=>{})
   }
 
+  // Open modal
+  const [openModal, setOpenModal]=useState(false);
+  console.log(openModal);
+
     return (
       <>
+        {openModal && <UpdateProfile setOpenModal={setOpenModal} />}
         {/* Upper section */}
         <div className=" flex justify-center items-center">
           {/* logo */}
@@ -120,7 +123,10 @@ const Navbar = () => {
                   <h4 className=" text-sm">{user?.email}</h4>
                 </div>
                 <div className="mt-10">
-                  <button className=" py-1 px-2 mr-4 text-md border-2 border-[#FF6666] rounded-md">
+                  <button
+                    onClick={() => setOpenModal(true)}
+                    className=" py-1 px-2 mr-4 text-md border-2 border-[#FF6666] rounded-md"
+                  >
                     Edit Profile
                   </button>
                   <button
