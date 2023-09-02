@@ -111,7 +111,7 @@ const Navbar = () => {
                 <li>
                   {user.photoURL ? (
                     <img
-                      className=" h-9 w-9 ml-4 my-3 md:h-11 md:w-11 md:ml-0 md:my-0 rounded-full"
+                      className=" border-2 border-white h-9 w-9 ml-4 my-3 md:h-11 md:w-11 md:ml-0 md:my-0 rounded-full"
                       src={user.photoURL}
                       alt="DP"
                       onClick={toggleValue}

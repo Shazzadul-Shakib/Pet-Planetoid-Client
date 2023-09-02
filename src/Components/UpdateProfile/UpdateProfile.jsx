@@ -26,7 +26,6 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
 
       if (response.status === 200) {
         const newImageUrl = response.data.data.display_url;
-        console.log("Image URL:", newImageUrl);
 
         // Update user info with the newImageUrl
         await updateUserInfo(data.name, newImageUrl)

@@ -28,7 +28,6 @@ const Login = () => {
     .then(result=>{
       reset();
       navigate(from, { replace: true });
-      console.log(result);
     })
     .catch(error=>{
       error.code==='auth/wrong-password' && console.log("Wrong password");
