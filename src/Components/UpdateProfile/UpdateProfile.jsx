@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 const UpdateProfile = ({ setOpenModal, openModal }) => {
   const { user, updateUserInfo } = useContext(AuthContext);
@@ -30,7 +31,10 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
         // Update user info with the newImageUrl
         await updateUserInfo(data.name, newImageUrl)
           .then(() => {
-            alert("Updated succesfully");
+            Swal.fire({
+              icon: "success",
+              title: "Profile Updated Successfully",
+            });
             setOpenModal(false);
           })
           .catch(() => {});

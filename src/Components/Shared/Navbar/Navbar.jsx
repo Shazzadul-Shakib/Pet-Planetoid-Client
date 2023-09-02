@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import UpdateProfile from '../../UpdateProfile/UpdateProfile';
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+import Swal from 'sweetalert2';
 
 const navItems=[
     {
@@ -47,6 +48,10 @@ const Navbar = () => {
   const handleLogout=()=>{
     logoutUser()
     .then(()=>{
+      Swal.fire({
+        icon: "success",
+        title: "Logout Successfully",
+      });
       setShowProfileCard(!showProfileCard);
       navigate(from, { replace: true });
     })

@@ -21,7 +21,8 @@
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.15.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "sweetalert2": "^11.7.27"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

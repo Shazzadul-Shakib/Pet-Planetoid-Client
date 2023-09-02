@@ -50,11 +50,6 @@ const Home = () => {
         </h1>
         <PetAdoption />
       </div>
-
-      {/* Update profile modal */}
-      <div>
-        
-      </div>
     </div>
   );
 };
