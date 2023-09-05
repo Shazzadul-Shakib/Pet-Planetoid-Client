@@ -23,6 +23,7 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
+  // Handle submit
   const onSubmit = (data) => {
     loginUserWithEmailPassword(data.email, data.password)
       .then((result) => {
