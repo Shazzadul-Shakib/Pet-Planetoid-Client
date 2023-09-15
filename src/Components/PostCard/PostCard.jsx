@@ -24,18 +24,18 @@ const PostCard = () => {
         </div>
         {/* Like count */}
         <div className=" my-3 ml-2 flex gap-2 items-center">
-          <AiFillHeart className='text-[#FF8989] text-lg' /> 2
+          <AiFillHeart className="text-[#FF8989] text-lg" /> 2
         </div>
         {/* like comment section */}
-        <div className="flex gap-5 my-3">
+        <div className="flex gap-5 my-1 md:my-3">
           <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg">
-            <AiOutlineHeart /> Like
+            <AiOutlineHeart /> <span className='hidden md:block'>Like</span>
           </button>
           <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg">
-            <AiOutlineComment /> Comment
+            <AiOutlineComment /> <span className='hidden md:block'>Comment</span>
           </button>
           <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg">
-            <PiShareFatThin /> Share
+            <PiShareFatThin /> <span className='hidden md:block'>Share</span>
           </button>
         </div>
       </div>

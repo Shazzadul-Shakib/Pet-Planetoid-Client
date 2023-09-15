@@ -1,7 +1,12 @@
 import { Helmet } from "react-helmet-async";
 import PostCard from "../../Components/PostCard/PostCard";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const PetWorld = () => {
+  const {user}=useContext(AuthContext);
+  console.log(user)
     return (
       <div>
         {/* Helmet to change title over browser */}
@@ -9,14 +14,31 @@ const PetWorld = () => {
           <title>Pet Planetoid | Pet world</title>
         </Helmet>
         {/* Pet world post section */}
-        <section className=" h-[83vh] flex gap-10 justify-end md:mr-10 mt-4">
+        <section className=" h-[83vh] flex flex-col-reverse mx-2 md:flex-row md:mx-0 gap-10 justify-center  mt-4">
           {/* All post appear here */}
-          <div className=" md:basis-[55%] h-full bg-white rounded-lg overflow-y-scroll">
-            <PostCard/>
-            <PostCard/>
+          <div className=" md:basis-[70%] h-full bg-white rounded-lg overflow-y-scroll">
+            <PostCard />
+            <PostCard />
           </div>
           {/* create post section here */}
-          <div className="hidden basis-[30%] h-full bg-[#FF8989] rounded-lg md:block"></div>
+          <div className=" rounded-lg md:block">
+            {/* User info */}
+            <div className="hidden md:flex items-center my-3">
+              <img
+                className="h-12 w-12 rounded-full mr-5 "
+                src={user?.photoURL}
+                alt=""
+              />
+              <h1 className="text-xl font-bold text-gray-600">
+                {user?.displayName}
+              </h1>
+            </div>
+            {/* Create post button */}
+            <div className="flex justify-center items-center mx-5 md:mx-0">
+              <AiOutlinePlusCircle className=" text-6xl text-[#FF8989]"/>
+              <button className="text-[#FF6666] outline-none text-lg p-2 border-4 border-[#FF8989] hover:bg-[#FF8989] hover:text-white w-full rounded-full">Create a post</button>
+            </div>
+          </div>
         </section>
       </div>
     );
