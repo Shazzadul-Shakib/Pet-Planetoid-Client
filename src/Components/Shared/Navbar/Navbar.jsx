@@ -73,7 +73,7 @@ const Navbar = () => {
   const [openModal, setOpenModal]=useState(false);
 
     return (
-      <>
+      <section className="sticky top-0 z-50">
         {openModal && (
           <UpdateProfile
             className="overflow-hidden"
@@ -82,7 +82,7 @@ const Navbar = () => {
           />
         )}
         {/* Upper section */}
-        <div className=" mx-8 flex justify-between items-center md:justify-center ">
+        <div className=" px-8 flex justify-between items-center md:justify-center bg-white ">
           {/* logo */}
           <img src={logo} alt="logo" className=" h-16" />
           {openMenu ? (
@@ -178,7 +178,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </>
+      </section>
     );
 };
 
