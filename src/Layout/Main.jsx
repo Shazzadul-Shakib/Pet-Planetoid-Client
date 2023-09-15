@@ -6,7 +6,7 @@ const Main = () => {
     const location=useLocation();
     const path=location.pathname;
     const requiredPath='/petworld';
-    console.log(path)
+    
     return (
       <div>
         <Navbar />

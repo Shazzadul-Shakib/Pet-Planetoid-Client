@@ -24,7 +24,6 @@ const PetWorld = () => {
         {/* All post appear here */}
         <div className=" md:basis-[70%] h-full bg-white rounded-lg overflow-y-scroll">
           <PostCard />
-          <PostCard />
         </div>
         {/* create post section here */}
         <div className=" rounded-lg md:block">

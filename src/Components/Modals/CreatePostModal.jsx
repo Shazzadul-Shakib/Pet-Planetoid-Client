@@ -1,8 +1,13 @@
 import { RxCrossCircled } from "react-icons/rx";
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import useCreatePost from "../../Hooks/useCreatePost";
 
 const CreatePostModal = ({ onClose }) => {
-  console.log(onclose);
+  const {user}=useContext(AuthContext);
+  const[,,refetch]=useCreatePost();
   const {
     handleSubmit,
     control,
@@ -11,10 +16,34 @@ const CreatePostModal = ({ onClose }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
-    onClose();
+  const onSubmit = async(data) => {
+    // Get Image URL
+    const formData = new FormData();
+    formData.append("image",data.image[0]);
+    const resposne = await axios.post(
+      "https://api.imgbb.com/1/upload?key=5253c30256b114e1a0e9185fe3cf6230",formData
+    );
+    if (resposne.status === 200) {
+      const PostImageURL = resposne.data.data.display_url;
+      data.displayURL=PostImageURL;
+      data.userName=user.displayName;
+      data.userPhotoURL=user.photoURL;
+    }
+    // Send data to server 
+    await fetch("http://localhost:5000/posts",{
+      method:"POST",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      refetch();
+      reset();
+      onClose();
+    })
+
   };
   return (
     <div className=" fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-lg overflow-hidden flex justify-center items-center ">
@@ -65,6 +94,7 @@ const CreatePostModal = ({ onClose }) => {
           <div className=" mt-6">
             <input
               name="image"
+              accept="image/*"
               {...register("image", { required: true })}
               className=" w-full p-2 border-2 outline-none rounded-lg border-[#FF8989] text-lg font-semibold text-gray-600"
               type="file"
