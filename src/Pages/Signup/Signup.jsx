@@ -43,7 +43,6 @@ const Signup = () => {
         console.log(error.code);
       });
   };
-  
 
   // // Handle google sign in
   const handleGoogleSignin = () => {
@@ -130,11 +129,6 @@ const Signup = () => {
                   >
                     Password
                   </label>
-                  {/* <div className="text-sm">
-                      <a href="#" className="font-semibold text-[#FF6666]">
-                        Forgot password?
-                      </a>
-                    </div> */}
                 </div>
                 <div className="mt-2">
                   <input

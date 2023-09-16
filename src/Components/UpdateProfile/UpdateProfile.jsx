@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProvider";
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 
 const UpdateProfile = ({ setOpenModal, openModal }) => {
   const { user, updateUserInfo } = useContext(AuthContext);
@@ -103,13 +104,20 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
             Upload photo
           </label>
           <div className="mt-2">
+            <label
+              htmlFor="image"
+              className="w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gray-300 focus:outline-[#FF6666] sm:text-sm sm:leading-6 flex justify-center items-center"
+            >
+              <AiOutlineCloudUpload className="text-3xl text-gray-700 pr-2" />
+              <span className="text-gray-600">Upload Image</span>
+            </label>
             <input
               id="image"
               name="image"
               {...register("image", { required: true })}
               accept="image/*"
               type="file"
-              className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gray-300 focus:outline-[#FF6666] sm:text-sm sm:leading-6"
+              className="w-full rounded-md border-0 p-3 text-gray-900 shadow-sm  placeholder:text-gray-400 ring-2 ring-gray-300 focus:outline-[#FF6666] sm:text-sm sm:leading-6 hidden"
             />
             {/* Error message will be shown here */}
             {errors.image && (

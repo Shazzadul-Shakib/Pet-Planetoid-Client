@@ -22,8 +22,7 @@ const ForgetPassword = () => {
       .then(() => {
         Swal.fire({
           icon: "success",
-          title: "Email sent succesfully",
-          text: "Check your inbox or spam to reset your password",
+          text: "Password reset request received. Check your inbox or spam to reset your password",
         });
         reset();
       })
