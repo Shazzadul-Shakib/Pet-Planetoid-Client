@@ -96,7 +96,7 @@ const Navbar = () => {
       {/* Upper section */}
       <div className=" px-8 flex justify-between items-center md:justify-center bg-white ">
         {/* logo */}
-        <img src={logo} alt="logo" className=" h-16" />
+        <img src={logo} alt="logo" className=" h-11" />
         {openMenu ? (
           <RxCross2 onClick={toggleMenu} className="md:hidden text-4xl" />
         ) : (
@@ -108,18 +108,18 @@ const Navbar = () => {
       </div>
       {/* Lower section */}
 
-      <div className=" bg-[#FF6666] text-white p-2 relative">
+      <div className=" bg-[#FF6666] text-white py-2 relative">
         {/* Nav items */}
         <div>
           <ul
-            className={` md:flex justify-evenly ${
+            className={` md:flex md:items-center justify-evenly ${
               openMenu ? "block" : "hidden"
             }`}
           >
             {navItems.map((navItem) => (
               <li
                 key={navItem.id}
-                className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md"
+                className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-1 px-4 rounded-md"
               >
                 <Link to={navItem.path}>{navItem.name}</Link>
               </li>
@@ -127,7 +127,7 @@ const Navbar = () => {
             {user ? (
               <li>
                   <img
-                    className=" border-2 border-white h-9 w-9 ml-4 my-3 md:h-11 md:w-11 md:ml-0 md:my-0 rounded-full"
+                    className=" border-2 border-white h-9 w-9 ml-4 my-3 md:ml-0 md:my-0 rounded-full"
                     src={user.photoURL || profile}
                     alt="DP"
                     ref={profileCardRef}
@@ -146,7 +146,7 @@ const Navbar = () => {
             <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
               <div>
                 {/* Image div */}
-                <div>
+                <div className=" flex justify-center">
                   <img
                     className=" my-6 h-24 w-24 rounded-full"
                     src={user.photoURL || profile}

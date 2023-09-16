@@ -15,19 +15,19 @@ const PetWorld = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-screen-xl mx-auto">
       {/* Helmet to change title over browser */}
       <Helmet>
         <title>Pet Planetoid | Pet world</title>
       </Helmet>
       {/* Pet world post section */}
-      <section className=" h-[81vh] flex flex-col-reverse mx-2 md:flex-row md:mx-0 gap-10 justify-center  mt-4">
+      <section className="  h-[81vh] flex justify-between flex-col-reverse  md:flex-row md:mx-0  md:gap-6 mt-4">
         {/* All post appear here */}
-        <div className=" md:basis-[70%] h-full bg-white rounded-lg overflow-y-scroll">
+        <div className=" md:basis-[67%] h-full bg-white rounded-lg overflow-y-scroll">
           <PostCard />
         </div>
         {/* create post section here */}
-        <div className=" rounded-lg md:block">
+        <div className=" md:basis-[30%] rounded-lg md:block md:px-5">
           {/* User info */}
           <div className="hidden md:flex items-center my-3">
             <img
@@ -44,8 +44,8 @@ const PetWorld = () => {
             onClick={toggleCreatePostModal}
             className="flex justify-center items-center mx-5 md:mx-0"
           >
-            <AiOutlinePlusCircle className=" text-6xl text-[#FF8989]" />
-            <button className="text-[#FF6666] outline-none text-lg p-2 border-4 border-[#FF8989] hover:bg-[#FF8989] hover:text-white w-full rounded-full">
+            <AiOutlinePlusCircle className=" text-5xl text-[#FF8989]" />
+            <button className="text-[#FF6666] outline-none text-lg p-1 border-4 border-[#FF8989] hover:bg-[#FF8989] hover:text-white w-full rounded-full">
               Create a post
             </button>
           </div>
