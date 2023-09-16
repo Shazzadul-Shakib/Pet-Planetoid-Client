@@ -6,6 +6,7 @@ import PetWorld from "../Pages/PetWorld/PetWorld";
 import ShelterRescue from "../Pages/Shelter&Rescue/ShelterRescue";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
+import ForgetPassword from "../Pages/Login/ForgetPassword";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
       },
       {
         path: "/signup",

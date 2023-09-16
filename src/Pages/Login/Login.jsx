@@ -139,9 +139,9 @@ const onSubmit = async (data) => {
                     Password
                   </label>
                   <div className="text-sm">
-                    <a href="#" className="font-semibold text-[#FF6666]">
+                    <Link to='/forgetpassword' className="font-semibold text-[#FF6666]">
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="mt-2">

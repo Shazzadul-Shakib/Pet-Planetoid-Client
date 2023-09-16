@@ -29,7 +29,9 @@ const PostCard = () => {
                 </h1>
               </div>
               <div className="border-2 border-[#FF8989] px-2 md:px-4 rounded-md mr-1 md:mr-6">
-                <h1 className="uppercase text-xs md:text-base">{post.petCategory}</h1>
+                <h1 className="uppercase text-xs md:text-base">
+                  {post.petCategory}
+                </h1>
               </div>
             </div>
             {/* Post caption */}
@@ -39,7 +41,7 @@ const PostCard = () => {
             {/* Post Image */}
             <div className=" my-3">
               <img
-                className=" w-full rounded-lg"
+                className=" w-full object-center rounded-lg"
                 src={post.displayURL}
                 alt=""
               />
