@@ -33,7 +33,7 @@ const Signup = () => {
         emailVerification().then(() => {
           Swal.fire({
             icon: "info",
-            title: "Pleasse check your inbox or spam to verify your email!",
+            text: "Pleasse check your inbox or spam to verify your email!",
           });
           navigate("/login");
         });

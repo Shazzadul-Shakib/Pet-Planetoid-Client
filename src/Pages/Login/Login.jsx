@@ -32,14 +32,14 @@ const onSubmit = async (data) => {
     if (result.user.emailVerified) {
       Swal.fire({
         icon: "success",
-        title: "Login Successfully",
+        text: "Login Successfully",
       });
       reset();
       navigate(from, { replace: true });
     } else {
       Swal.fire({
         icon: "info",
-        title: "Pleasse check your inbox or spam to verify your email!",
+        text: "Pleasse check your inbox or spam to verify your email!",
       });
       reset();
     }
@@ -47,12 +47,12 @@ const onSubmit = async (data) => {
     if (error.code === "auth/wrong-password") {
       Swal.fire({
         icon: "error",
-        title: "Wrong Password, Enter Correct Password and try again",
+        text: "Wrong Password, Enter Correct Password and try again",
       });
     } else if (error.code === "auth/user-not-found") {
       Swal.fire({
         icon: "error",
-        title: "Invalid User!",
+        text: "Invalid User!",
       });
     } else {
       console.error("An error occurred:", error);
@@ -66,7 +66,7 @@ const onSubmit = async (data) => {
       .then((result) => {
         Swal.fire({
           icon: "success",
-          title: "Login Successfully",
+          text: "Login Successfully",
         });
         navigate(from, { replace: true });
       })
@@ -77,7 +77,7 @@ const onSubmit = async (data) => {
           popuperror &&
             Swal.fire({
               icon: "error",
-              title: "Popup Closed by user!",
+              text: "Popup Closed by user!",
             });
         }
       });
