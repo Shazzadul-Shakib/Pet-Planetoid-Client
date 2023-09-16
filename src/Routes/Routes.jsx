@@ -5,6 +5,7 @@ import Login from "../Pages/Login/Login";
 import PetWorld from "../Pages/PetWorld/PetWorld";
 import ShelterRescue from "../Pages/Shelter&Rescue/ShelterRescue";
 import Signup from "../Pages/Signup/Signup";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -17,20 +18,24 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/petworld",
-        element: <PetWorld />,
-      },
-      {
-        path: "/shelters&rescues",
-        element: <ShelterRescue />,
-      },
-      {
         path: "/login",
         element: <Login />,
       },
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/petworld",
+        element: (
+          <PrivateRoute>
+            <PetWorld />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/shelters&rescues",
+        element: <ShelterRescue />,
       },
     ],
   },

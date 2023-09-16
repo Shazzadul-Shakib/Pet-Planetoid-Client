@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../../../src/assets/logo.svg'
-import profile from '../../../assets/profile.jpg'
+import profile from '../../../assets/profile.jpg';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import UpdateProfile from '../../UpdateProfile/UpdateProfile';
@@ -55,7 +55,7 @@ const Navbar = () => {
       setShowProfileCard(!showProfileCard);
       navigate(from, { replace: true });
     })
-    .catch(()=>{})
+    .catch((error)=>{console.log(error)})
   }
 
 

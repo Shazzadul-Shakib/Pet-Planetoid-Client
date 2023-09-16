@@ -1,4 +1,5 @@
 import { RxCrossCircled } from "react-icons/rx";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useContext } from "react";
@@ -91,12 +92,20 @@ const CreatePostModal = ({ onClose }) => {
               placeholder="Write your post here"
             ></textarea>
           </div>
-          <div className=" mt-6">
+          <div className=" mt-6 ">
+            <label
+              htmlFor="image"
+              className="  w-full p-3 border-2 outline-none rounded-lg border-[#FF8989] text-lg font-semibold text-gray-600 flex justify-center items-center"
+            >
+              <AiOutlineCloudUpload className="text-4xl text-[#FF8989] pr-2" />
+              <span className="text-[#FF8989]">Upload Image</span>
+            </label>
             <input
               name="image"
+              id="image"
               accept="image/*"
               {...register("image", { required: true })}
-              className=" w-full p-2 border-2 outline-none rounded-lg border-[#FF8989] text-lg font-semibold text-gray-600"
+              className=" hidden"
               type="file"
             />
             {errors.image?.type === "required" && (

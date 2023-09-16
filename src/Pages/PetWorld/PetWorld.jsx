@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import CreatePostModal from "../../Components/Modals/CreatePostModal";
+import profile from '../../assets/profile.jpg';
 
 const PetWorld = () => {
   const {user}=useContext(AuthContext);
@@ -29,11 +30,19 @@ const PetWorld = () => {
         <div className=" rounded-lg md:block">
           {/* User info */}
           <div className="hidden md:flex items-center my-3">
-            <img
-              className="h-12 w-12 rounded-full mr-5 "
-              src={user?.photoURL}
-              alt=""
-            />
+            {user.photoURL ? (
+              <img
+                className="h-12 w-12 rounded-full mr-5 "
+                src={user?.photoURL}
+                alt=""
+              />
+            ) : (
+              <img
+                className="h-12 w-12 rounded-full mr-5 "
+                src={profile}
+                alt=""
+              />
+            )}
             <h1 className="text-xl font-bold text-gray-600">
               {user?.displayName}
             </h1>

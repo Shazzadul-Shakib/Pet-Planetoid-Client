@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -12,7 +13,8 @@ const Signup = () => {
   // from is if there is any state that should go or it willredirect to home page
   const from = location.state?.from?.pathname || "/";
 
-  const { createUser, updateUserName, googleSignin } = useContext(AuthContext);
+  const { createUser, updateUserName, googleSignin, emailVerification } =
+    useContext(AuthContext);
 
   // Form hook
   const {
@@ -28,14 +30,20 @@ const Signup = () => {
         updateUserName(data.name)
           .then(() => {})
           .catch(() => {});
-        console.log(result);
+        emailVerification().then(() => {
+          Swal.fire({
+            icon: "info",
+            title: "Pleasse check your inbox or spam to verify your email!",
+          });
+          navigate("/login");
+        });
         reset();
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error.code);
       });
   };
+  
 
   // // Handle google sign in
   const handleGoogleSignin = () => {

@@ -14,7 +14,8 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   // auth context
-  const { loginUserWithEmailPassword, googleSignin } = useContext(AuthContext);
+  const { loginUserWithEmailPassword, googleSignin, logoutUser } =
+    useContext(AuthContext);
 
   // Form hook
   const {
@@ -23,40 +24,41 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-  // Handle submit
-  const onSubmit = (data) => {
-    loginUserWithEmailPassword(data.email, data.password)
-      .then((result) => {
-        Swal.fire({
-          icon: "success",
-          title: "Login Successfully",
-        });
-        reset();
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        const wrongPassword = error.code === "auth/wrong-password";
-        const userNotFound = error.code === "auth/user-not-found";
-        // Popup show with error message
-        {
-          wrongPassword &&
-            Swal.fire({
-              icon: "error",
-              title: `${
-                wrongPassword &&
-                "Wrong Password, Enter Correct Password and try again"
-              }`,
-            });
-        }
-        {
-          userNotFound &&
-            Swal.fire({
-              icon: "error",
-              title: `${userNotFound && "Invalid User!"}`,
-            });
-        }
+
+const onSubmit = async (data) => {
+  try {
+    const result = await loginUserWithEmailPassword(data.email, data.password);
+
+    if (result.user.emailVerified) {
+      Swal.fire({
+        icon: "success",
+        title: "Login Successfully",
       });
-  };
+      reset();
+      navigate(from, { replace: true });
+    } else {
+      Swal.fire({
+        icon: "info",
+        title: "Pleasse check your inbox or spam to verify your email!",
+      });
+      reset();
+    }
+  } catch (error) {
+    if (error.code === "auth/wrong-password") {
+      Swal.fire({
+        icon: "error",
+        title: "Wrong Password, Enter Correct Password and try again",
+      });
+    } else if (error.code === "auth/user-not-found") {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid User!",
+      });
+    } else {
+      console.error("An error occurred:", error);
+    }
+  }
+};
 
   // Handle google sign in
   const handleGoogleSignin = () => {
@@ -136,11 +138,11 @@ const Login = () => {
                   >
                     Password
                   </label>
-                  {/* <div className="text-sm">
-                      <a href="#" className="font-semibold text-[#FF6666]">
-                        Forgot password?
-                      </a>
-                    </div> */}
+                  <div className="text-sm">
+                    <a href="#" className="font-semibold text-[#FF6666]">
+                      Forgot password?
+                    </a>
+                  </div>
                 </div>
                 <div className="mt-2">
                   <input
