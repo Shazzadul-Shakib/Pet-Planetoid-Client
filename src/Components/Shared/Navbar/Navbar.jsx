@@ -1,155 +1,157 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import logo from '../../../../src/assets/logo.svg'
-import profile from '../../../assets/profile.jpg';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../../Providers/AuthProvider';
-import UpdateProfile from '../../UpdateProfile/UpdateProfile';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../../../src/assets/logo.svg";
+import profile from "../../../assets/profile.jpg";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import UpdateProfile from "../../UpdateProfile/UpdateProfile";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { FaEdit } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
-const navItems=[
-    {
-      id:'1',  
-      name:'Home',
-        path:'/'
-    },
-    {
-      id:'2',  
-      name:'Pet World',
-        path:'/petworld'
-    },
-    {
-      id:'3',  
-      name:'Shelters & Rescues',
-        path:'/shelters&rescues'
-    },
-
-]
+const navItems = [
+  {
+    id: "1",
+    name: "Home",
+    path: "/",
+  },
+  {
+    id: "2",
+    name: "Pet World",
+    path: "/petworld",
+  },
+  {
+    id: "3",
+    name: "Shelters & Rescues",
+    path: "/shelters&rescues",
+  },
+];
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
 
-  // Navigate after logout 
+  // Navigate after logout
   const navigate = useNavigate();
   const location = useLocation();
   // from is if there is any state that should go or it willredirect to home page
   const from = location.state?.from?.pathname || "/";
 
   // Profilecard toggle state
-  const [showProfileCard, setShowProfileCard]=useState(false);
+  const profileCardRef = useRef(null);
+  const [showProfileCard, setShowProfileCard] = useState(false);
   const toggleProfileCard = () => {
     setShowProfileCard(!showProfileCard); // Toggle the value
   };
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        profileCardRef.current &&
+        !profileCardRef.current.contains(event.target)
+      ) {
+        setShowProfileCard(false);
+      }
+    };
 
-  // Handle logout 
-  const handleLogout=()=>{
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [profileCardRef]);
+
+  // Handle logout
+  const handleLogout = () => {
     logoutUser()
-    .then(()=>{
-      Swal.fire({
-        icon: "success",
-        title: "Logout Successfully",
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Logout Successfully",
+        });
+        setShowProfileCard(!showProfileCard);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      setShowProfileCard(!showProfileCard);
-      navigate(from, { replace: true });
-    })
-    .catch((error)=>{console.log(error)})
-  }
-
+  };
 
   // Toggle hamburger menu
   const [openMenu, setOpenMenu] = useState(false);
-  const toggleMenu=()=>{
+  const toggleMenu = () => {
     setOpenMenu(!openMenu);
-  }
+  };
 
   // Open modal
-  const [openModal, setOpenModal]=useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-    return (
-      <section className="sticky top-0 z-50">
-        {openModal && (
-          <UpdateProfile
-            className="overflow-hidden"
-            setOpenModal={setOpenModal}
-            openModal={openModal}
+  return (
+    <section className="sticky top-0 z-50">
+      {openModal && (
+        <UpdateProfile
+          className="overflow-hidden"
+          setOpenModal={setOpenModal}
+          openModal={openModal}
+        />
+      )}
+      {/* Upper section */}
+      <div className=" px-8 flex justify-between items-center md:justify-center bg-white ">
+        {/* logo */}
+        <img src={logo} alt="logo" className=" h-16" />
+        {openMenu ? (
+          <RxCross2 onClick={toggleMenu} className="md:hidden text-4xl" />
+        ) : (
+          <RxHamburgerMenu
+            onClick={toggleMenu}
+            className="md:hidden text-4xl"
           />
         )}
-        {/* Upper section */}
-        <div className=" px-8 flex justify-between items-center md:justify-center bg-white ">
-          {/* logo */}
-          <img src={logo} alt="logo" className=" h-16" />
-          {openMenu ? (
-            <RxCross2 onClick={toggleMenu} className="md:hidden text-4xl" />
-          ) : (
-            <RxHamburgerMenu
-              onClick={toggleMenu}
-              className="md:hidden text-4xl"
-            />
-          )}
-        </div>
-        {/* Lower section */}
+      </div>
+      {/* Lower section */}
 
-        <div className=" bg-[#FF6666] text-white p-2 relative">
-          {/* Nav items */}
-          <div>
-            <ul
-              className={` md:flex justify-evenly ${
-                openMenu ? "block" : "hidden"
-              }`}
-            >
-              {navItems.map((navItem) => (
-                <li
-                  key={navItem.id}
-                  className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md"
-                >
-                  <Link to={navItem.path}>{navItem.name}</Link>
-                </li>
-              ))}
-              {user ? (
-                <li>
-                  {user.photoURL ? (
-                    <img
-                      className=" border-2 border-white h-9 w-9 ml-4 my-3 md:h-11 md:w-11 md:ml-0 md:my-0 rounded-full"
-                      src={user.photoURL}
-                      alt="DP"
-                      onClick={toggleProfileCard}
-                    />
-                  ) : (
-                    <img
-                      className=" h-11 rounded-full"
-                      src={profile}
-                      alt="DP"
-                      onClick={toggleProfileCard}
-                    />
-                  )}
-                </li>
-              ) : (
-                <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
-                  <Link to="/login">Login</Link>
-                </li>
-              )}
-            </ul>
+      <div className=" bg-[#FF6666] text-white p-2 relative">
+        {/* Nav items */}
+        <div>
+          <ul
+            className={` md:flex justify-evenly ${
+              openMenu ? "block" : "hidden"
+            }`}
+          >
+            {navItems.map((navItem) => (
+              <li
+                key={navItem.id}
+                className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md"
+              >
+                <Link to={navItem.path}>{navItem.name}</Link>
+              </li>
+            ))}
+            {user ? (
+              <li>
+                  <img
+                    className=" border-2 border-white h-9 w-9 ml-4 my-3 md:h-11 md:w-11 md:ml-0 md:my-0 rounded-full"
+                    src={user.photoURL || profile}
+                    alt="DP"
+                    ref={profileCardRef}
+                    onClick={toggleProfileCard}
+                  />
+              </li>
+            ) : (
+              <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
+                <Link to="/login">Login</Link>
+              </li>
+            )}
+          </ul>
 
-            {/* Profile card */}
-            {showProfileCard && (
-              <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
+          {/* Profile card */}
+          {showProfileCard && (
+            <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
+              <div>
                 {/* Image div */}
                 <div>
-                  {user?.photoURL ? (
-                    <img
-                      className=" my-6 h-24 w-24 rounded-full"
-                      src={user.photoURL}
-                      alt="DP"
-                    />
-                  ) : (
-                    <img
-                      className=" my-6 h-24 rounded-full"
-                      src={profile}
-                      alt="DP"
-                    />
-                  )}
+                  <img
+                    className=" my-6 h-24 w-24 rounded-full"
+                    src={user.photoURL || profile}
+                    alt="DP"
+                  />
                 </div>
                 <div className=" text-center">
                   <h3 className=" text-xl">{user?.displayName}</h3>
@@ -171,11 +173,12 @@ const Navbar = () => {
                   </button>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      </section>
-    );
+      </div>
+    </section>
+  );
 };
 
 export default Navbar;
