@@ -126,18 +126,18 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
           </div>
         </div>
 
-        <div className=" flex justify-center items-center pb-5">
-          <input
-            className=" px-4 py-2 mr-4 my-4 rounded-lg font-bold text-white bg-green-600 "
-            type="submit"
-            value="Update"
-          />
+        <div className="w-2/3 mx-auto flex justify-center items-center pb-5">
           <button
             onClick={() => setOpenModal(false)}
-            className=" px-4 py-2 ml-4 my-4 rounded-lg font-bold text-white bg-red-600 "
+            className=" w-1/2  px-4 py-2 mr-4 my-4 rounded-lg font-bold text-white bg-red-600 "
           >
             Cancel
           </button>
+          <input
+            className=" w-1/2 px-4 py-2 ml-4 my-4 rounded-lg font-bold text-white bg-green-600 "
+            type="submit"
+            value="Update"
+          />
         </div>
       </form>
     </div>

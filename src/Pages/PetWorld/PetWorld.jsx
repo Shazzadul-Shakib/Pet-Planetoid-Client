@@ -44,7 +44,7 @@ const PetWorld = () => {
             onClick={toggleCreatePostModal}
             className="flex justify-center items-center mx-5 md:mx-0"
           >
-            <AiOutlinePlusCircle className=" text-5xl text-[#FF8989]" />
+            <AiOutlinePlusCircle className=" text-5xl text-[#FF8989] mr-2" />
             <button className="text-[#FF6666] outline-none text-lg p-1 border-4 border-[#FF8989] hover:bg-[#FF8989] hover:text-white w-full rounded-full">
               Create a post
             </button>
