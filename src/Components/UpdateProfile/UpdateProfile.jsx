@@ -46,9 +46,9 @@ const UpdateProfile = ({ setOpenModal, openModal }) => {
   };
 
   return (
-    <div className=" fixed inset-0 z-50 bg-slate-600 bg-opacity-40 backdrop-blur-md overflow-hidden">
+    <div className="  fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-lg overflow-hidden flex justify-center items-center">
       <form
-        className="space-y-6 md:w-1/2 mx-auto mt-44 bg-white rounded-lg"
+        className="space-y-6 w-full md:w-1/2 mx-4 bg-white rounded-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         {/* Email box */}

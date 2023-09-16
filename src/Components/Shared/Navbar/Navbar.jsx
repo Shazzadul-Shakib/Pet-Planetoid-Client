@@ -5,6 +5,8 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import UpdateProfile from '../../UpdateProfile/UpdateProfile';
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+import { FaEdit } from "react-icons/fa";
+import { BiLogOutCircle } from "react-icons/bi";
 import Swal from 'sweetalert2';
 
 const navItems=[
@@ -37,10 +39,7 @@ const Navbar = () => {
 
   // Profilecard toggle state
   const [showProfileCard, setShowProfileCard]=useState(false);
-  const [prevValue, setPrevValue] = useState(null);
-
-  const toggleValue = () => {
-    setPrevValue(showProfileCard); // Store the current value as the previous value
+  const toggleProfileCard = () => {
     setShowProfileCard(!showProfileCard); // Toggle the value
   };
 
@@ -61,13 +60,9 @@ const Navbar = () => {
 
   // Toggle hamburger menu
   const [openMenu, setOpenMenu] = useState(false);
-  const [prebMenu,setPrevMenu]=useState(null);
-
   const toggleMenu=()=>{
-    setPrevMenu(openMenu);
     setOpenMenu(!openMenu);
   }
-
 
   // Open modal
   const [openModal, setOpenModal]=useState(false);
@@ -119,14 +114,14 @@ const Navbar = () => {
                       className=" border-2 border-white h-9 w-9 ml-4 my-3 md:h-11 md:w-11 md:ml-0 md:my-0 rounded-full"
                       src={user.photoURL}
                       alt="DP"
-                      onClick={toggleValue}
+                      onClick={toggleProfileCard}
                     />
                   ) : (
                     <img
                       className=" h-11 rounded-full"
                       src={profile}
                       alt="DP"
-                      onClick={toggleValue}
+                      onClick={toggleProfileCard}
                     />
                   )}
                 </li>
@@ -139,7 +134,7 @@ const Navbar = () => {
 
             {/* Profile card */}
             {showProfileCard && (
-              <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-white text-[#FF6666]  h-[300px] w-[300px] rounded-lg ">
+              <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
                 {/* Image div */}
                 <div>
                   {user?.photoURL ? (
@@ -160,17 +155,18 @@ const Navbar = () => {
                   <h3 className=" text-xl">{user?.displayName}</h3>
                   <h4 className=" text-sm">{user?.email}</h4>
                 </div>
-                <div className="mt-10">
+                <div className="mt-10 flex gap-4">
                   <button
                     onClick={() => setOpenModal(true)}
-                    className=" py-1 px-2 mr-4 text-md border-2 border-[#FF6666] rounded-md"
+                    className="py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"
                   >
-                    Edit Profile
+                    <FaEdit /> Edit Profile
                   </button>
                   <button
-                    className=" py-1 px-2 text-md border-2 border-[#FF6666] rounded-md"
+                    className=" py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"
                     onClick={handleLogout}
                   >
+                    <BiLogOutCircle />
                     Logout
                   </button>
                 </div>
