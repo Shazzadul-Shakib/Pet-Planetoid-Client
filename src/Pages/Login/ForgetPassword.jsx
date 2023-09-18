@@ -27,8 +27,13 @@ const ForgetPassword = () => {
         reset();
       })
       .catch((error) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        const errorMessage = error.code;
+        if(errorMessage==="auth/user-not-found"){
+          Swal.fire({
+            icon: "error",
+            text: "Please enter valid email!",
+          });
+        }
       });
   };
   return (
@@ -48,7 +53,7 @@ const ForgetPassword = () => {
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-10 mb-6 text-center text-2xl font-bold leading-9 tracking-tight text-[#FF6666]">
-              Forget Password?
+              Forgot Password?
             </h2>
             <p className=" font-semibold text-gray-800">
               Don't Worry! Enter your email to reset your password

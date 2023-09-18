@@ -8,6 +8,8 @@ import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { FaEdit } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
 import Swal from "sweetalert2";
+import usseOutsideClick from "../../../Hooks/useOutsideClick";
+import useOutsideClick from "../../../Hooks/useOutsideClick";
 
 const navItems = [
   {
@@ -37,27 +39,10 @@ const Navbar = () => {
   const from = location.state?.from?.pathname || "/";
 
   // Profilecard toggle state
-  const profileCardRef = useRef(null);
-  const [showProfileCard, setShowProfileCard] = useState(false);
+  const [showProfileCard, setShowProfileCard,profileCardRef] = useOutsideClick(false);
   const toggleProfileCard = () => {
-    setShowProfileCard(!showProfileCard); // Toggle the value
+    setShowProfileCard(!showProfileCard);
   };
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (
-        profileCardRef.current &&
-        !profileCardRef.current.contains(event.target)
-      ) {
-        setShowProfileCard(false);
-      }
-    };
-
-    document.addEventListener("click", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, [profileCardRef]);
 
   // Handle logout
   const handleLogout = () => {
@@ -126,13 +111,48 @@ const Navbar = () => {
             ))}
             {user ? (
               <li>
+                <div ref={profileCardRef}>
                   <img
                     className=" border-2 border-white h-9 w-9 ml-4 my-3 md:ml-0 md:my-0 rounded-full"
                     src={user.photoURL || profile}
                     alt="DP"
-                    ref={profileCardRef}
                     onClick={toggleProfileCard}
                   />
+                  {/* Profile card */}
+                  {showProfileCard && (
+                    <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
+                      <div>
+                        {/* Image div */}
+                        <div className=" flex justify-center">
+                          <img
+                            className=" my-6 h-24 w-24 rounded-full"
+                            src={user.photoURL || profile}
+                            alt="DP"
+                          />
+                        </div>
+                        <div className=" text-center">
+                          <h3 className=" text-xl">{user?.displayName}</h3>
+                          <h4 className=" text-sm">{user?.email}</h4>
+                        </div>
+                        <div className="mt-10 flex gap-4">
+                          <button
+                            onClick={() => setOpenModal(true)}
+                            className="py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"
+                          >
+                            <FaEdit /> Edit Profile
+                          </button>
+                          <button
+                            className=" py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"
+                            onClick={handleLogout}
+                          >
+                            <BiLogOutCircle />
+                            Logout
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </li>
             ) : (
               <li className=" py-2 text-lg hover:bg-white hover:text-[#FF6666] md:py-2 px-4 rounded-md">
@@ -140,41 +160,6 @@ const Navbar = () => {
               </li>
             )}
           </ul>
-
-          {/* Profile card */}
-          {showProfileCard && (
-            <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
-              <div>
-                {/* Image div */}
-                <div className=" flex justify-center">
-                  <img
-                    className=" my-6 h-24 w-24 rounded-full"
-                    src={user.photoURL || profile}
-                    alt="DP"
-                  />
-                </div>
-                <div className=" text-center">
-                  <h3 className=" text-xl">{user?.displayName}</h3>
-                  <h4 className=" text-sm">{user?.email}</h4>
-                </div>
-                <div className="mt-10 flex gap-4">
-                  <button
-                    onClick={() => setOpenModal(true)}
-                    className="py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"
-                  >
-                    <FaEdit /> Edit Profile
-                  </button>
-                  <button
-                    className=" py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"
-                    onClick={handleLogout}
-                  >
-                    <BiLogOutCircle />
-                    Logout
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </section>
