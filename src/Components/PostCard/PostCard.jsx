@@ -3,18 +3,21 @@ import { PiShareFatThin } from "react-icons/pi";
 import useCreatePost from "../../Hooks/useCreatePost";
 import Loader from "../Shared/Loader/Loader";
 import axios from "axios";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const PostCard = () => {
   const [data, isLoading, refetch] = useCreatePost();
-  // console.log(user);
-
+  const { user } = useContext(AuthContext);
   // toggle like
   const toggleLike = async (post) => {
-    post.isLiked = !post.isLiked;
-    await axios.patch(`http://localhost:5000/get-posts/${post._id}`,post)
-    .then(res=>{
-      refetch();
-    })
+    post.likeduser = user;
+    await axios
+      .patch(`http://localhost:5000/get-posts/${post._id}`, post)
+      .then((res) => {
+        console.log(res);
+        refetch();
+      });
   };
   if (isLoading) {
     return <Loader />;
@@ -62,7 +65,8 @@ const PostCard = () => {
             </div>
             {/* Like count */}
             <div className=" my-3 ml-2 flex gap-2 items-center">
-              <AiFillHeart className="text-[#FF8989] text-lg" /> 0
+              <AiFillHeart className="text-[#FF8989] text-lg" />{" "}
+              {post.likes.length}
             </div>
             {/* like comment section */}
             <div className="flex gap-5 my-1 md:my-3">
@@ -71,9 +75,22 @@ const PostCard = () => {
                 className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white"
               >
                 <AiOutlineHeart
-                  className={`${post.isLiked && "text-[#FF8989]"}`}
+                  className={` text-xl ${
+                    post.likes.find((item) => item.email === user.email) &&
+                    "hidden"
+                  }`}
                 />
-                <span className="hidden md:block">Like</span>
+                <AiFillHeart
+                  className={`text-[#FF8989] text-xl ${
+                    post.likes.find((item) => item.email === user.email) ||
+                    "hidden"
+                  }`}
+                />
+                <span className="hidden md:block">
+                  {(post.likes.find((item) => item.email === user.email) &&
+                    "Unlike") ||
+                    "Like"}
+                </span>
               </button>
               <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white">
                 <AiOutlineComment />{" "}

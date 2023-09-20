@@ -22,7 +22,7 @@ const CreatePostModal = ({ onClose }) => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
     const resposne = await axios.post(
-      "https://api.imgbb.com/1/upload?key=21831f0b3cf0e342209631e8939ec8da",
+      "https://api.imgbb.com/1/upload?key=5253c30256b114e1a0e9185fe3cf6230",
       formData
     );
     if (resposne.status === 200) {
@@ -30,7 +30,7 @@ const CreatePostModal = ({ onClose }) => {
       data.displayURL = PostImageURL;
       data.userName = user.displayName;
       data.userPhotoURL = user.photoURL;
-      data.isLiked=false;
+      data.likes= []; 
     }
     // Send data to server
     await fetch("http://localhost:5000/add-posts", {
