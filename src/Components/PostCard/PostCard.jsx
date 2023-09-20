@@ -13,8 +13,11 @@ const PostCard = () => {
 
   return (
     <div>
+      {
+        data.length==0 && <h1 className=" text-center mt-10 text-xl text-gray-500 font-semibold">No posts yet</h1>
+      }
       {/* User info */}
-      {data.map((post) => (
+      {data?.map((post) => (
         <div key={post._id}>
           <div className=" p-5 w-5/6 bg-white shadow-lg rounded-lg m-4 mx-auto">
             <div className=" flex justify-between items-center">

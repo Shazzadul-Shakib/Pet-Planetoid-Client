@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
         } else {
           setUser(null);
           // Sign out the user to clear Firebase Authentication state
-          signOut(auth);
+          signOut(auth); //need to be tested
         }
         setLoading(false);
       });

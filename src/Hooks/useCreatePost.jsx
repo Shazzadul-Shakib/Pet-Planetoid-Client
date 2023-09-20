@@ -4,7 +4,7 @@ const useCreatePost = () => {
   const { isLoading, data, refetch } = useQuery(
     "posts",
     async () =>
-      await fetch(`http://localhost:5000/posts`).then((response) =>
+      await fetch(`http://localhost:5000/get-posts`).then((response) =>
         response.json()
       )
   );

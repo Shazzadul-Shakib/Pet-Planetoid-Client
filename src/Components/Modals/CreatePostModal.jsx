@@ -7,8 +7,8 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import useCreatePost from "../../Hooks/useCreatePost";
 
 const CreatePostModal = ({ onClose }) => {
-  const {user}=useContext(AuthContext);
-  const[,,refetch]=useCreatePost();
+  const { user } = useContext(AuthContext);
+  const [, , refetch] = useCreatePost();
   const {
     handleSubmit,
     control,
@@ -17,34 +17,34 @@ const CreatePostModal = ({ onClose }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     // Get Image URL
     const formData = new FormData();
-    formData.append("image",data.image[0]);
+    formData.append("image", data.image[0]);
     const resposne = await axios.post(
-      "https://api.imgbb.com/1/upload?key=5253c30256b114e1a0e9185fe3cf6230",formData
+      "https://api.imgbb.com/1/upload?key=21831f0b3cf0e342209631e8939ec8da",
+      formData
     );
     if (resposne.status === 200) {
       const PostImageURL = resposne.data.data.display_url;
-      data.displayURL=PostImageURL;
-      data.userName=user.displayName;
-      data.userPhotoURL=user.photoURL;
+      data.displayURL = PostImageURL;
+      data.userName = user.displayName;
+      data.userPhotoURL = user.photoURL;
     }
-    // Send data to server 
-    await fetch("http://localhost:5000/posts",{
-      method:"POST",
-      headers:{
-        "content-type":"application/json"
+    // Send data to server
+    await fetch("http://localhost:5000/add-posts", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
       },
-      body:JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    .then(res=>res.json())
-    .then(data=>{
-      refetch();
-      reset();
-      onClose();
-    })
-
+      .then((res) => res.json())
+      .then((data) => {
+        refetch();
+        reset();
+        onClose();
+      });
   };
   return (
     <div className=" fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-lg overflow-hidden flex justify-center items-center ">
