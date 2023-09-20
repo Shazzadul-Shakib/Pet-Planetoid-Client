@@ -1,21 +1,32 @@
-import profile from "../../assets/profile.jpg";
-import post from "../../assets/blogc1.jpg";
 import { AiOutlineHeart, AiOutlineComment, AiFillHeart } from "react-icons/ai";
 import { PiShareFatThin } from "react-icons/pi";
 import useCreatePost from "../../Hooks/useCreatePost";
 import Loader from "../Shared/Loader/Loader";
+import axios from "axios";
 
 const PostCard = () => {
   const [data, isLoading, refetch] = useCreatePost();
+  // console.log(user);
+
+  // toggle like
+  const toggleLike = async (post) => {
+    post.isLiked = !post.isLiked;
+    await axios.patch(`http://localhost:5000/get-posts/${post._id}`,post)
+    .then(res=>{
+      refetch();
+    })
+  };
   if (isLoading) {
     return <Loader />;
   }
 
   return (
     <div>
-      {
-        data.length==0 && <h1 className=" text-center mt-10 text-xl text-gray-500 font-semibold">No posts yet</h1>
-      }
+      {data.length == 0 && (
+        <h1 className=" text-center mt-10 text-xl text-gray-500 font-semibold">
+          No posts yet
+        </h1>
+      )}
       {/* User info */}
       {data?.map((post) => (
         <div key={post._id}>
@@ -51,12 +62,18 @@ const PostCard = () => {
             </div>
             {/* Like count */}
             <div className=" my-3 ml-2 flex gap-2 items-center">
-              <AiFillHeart className="text-[#FF8989] text-lg" /> 2
+              <AiFillHeart className="text-[#FF8989] text-lg" /> 0
             </div>
             {/* like comment section */}
             <div className="flex gap-5 my-1 md:my-3">
-              <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white">
-                <AiOutlineHeart /> <span className="hidden md:block">Like</span>
+              <button
+                onClick={() => toggleLike(post)}
+                className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white"
+              >
+                <AiOutlineHeart
+                  className={`${post.isLiked && "text-[#FF8989]"}`}
+                />
+                <span className="hidden md:block">Like</span>
               </button>
               <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white">
                 <AiOutlineComment />{" "}
