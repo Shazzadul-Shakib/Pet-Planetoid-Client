@@ -8,7 +8,6 @@ import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { FaEdit } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
 import Swal from "sweetalert2";
-import usseOutsideClick from "../../../Hooks/useOutsideClick";
 import useOutsideClick from "../../../Hooks/useOutsideClick";
 
 const navItems = [

@@ -5,10 +5,17 @@ import Loader from "../Shared/Loader/Loader";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import LikedUsersModal from "../Modals/LikedUsersModal";
+import useOutsideClick from "../../Hooks/useOutsideClick";
 
 const PostCard = () => {
   const [data, isLoading, refetch] = useCreatePost();
   const { user } = useContext(AuthContext);
+  const [openLikedUserModalId, setOpenLikedUserModalId] = useState(null);
+
+  const toggleLikedUserModal = (post) => {
+    setOpenLikedUserModalId(post._id);
+  };
   // toggle like
   const toggleLike = async (post) => {
     post.likeduser = user;
@@ -64,9 +71,20 @@ const PostCard = () => {
               />
             </div>
             {/* Like count */}
-            <div className=" my-3 ml-2 flex gap-2 items-center">
-              <AiFillHeart className="text-[#FF8989] text-lg" />{" "}
-              {post.likes.length}
+            <div>
+              <div
+                onClick={() => toggleLikedUserModal(post)}
+                className=" my-3 ml-2 flex gap-2 items-center"
+              >
+                <AiFillHeart className="text-[#FF8989] text-lg" />
+                {post.likes.length}
+              </div>
+              {openLikedUserModalId === post._id && (
+                <LikedUsersModal
+                  post={post}
+                  onclose={() => setOpenLikedUserModalId(null)}
+                />
+              )}
             </div>
             {/* like comment section */}
             <div className="flex gap-5 my-1 md:my-3">
