@@ -72,21 +72,21 @@ const PostCard = () => {
             <div className="flex gap-5 my-1 md:my-3">
               <button
                 onClick={() => toggleLike(post)}
-                className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white"
+                className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg group hover:bg-[#FF8989] "
               >
                 <AiOutlineHeart
-                  className={` text-xl ${
+                  className={` text-xl group-hover:text-white ${
                     post.likes.find((item) => item.email === user.email) &&
                     "hidden"
                   }`}
                 />
                 <AiFillHeart
-                  className={`text-[#FF8989] text-xl ${
+                  className={`text-[#FF8989] group-hover:text-white text-xl ${
                     post.likes.find((item) => item.email === user.email) ||
                     "hidden"
                   }`}
                 />
-                <span className="hidden md:block">
+                <span className="hidden md:block group-hover:text-white">
                   {(post.likes.find((item) => item.email === user.email) &&
                     "Unlike") ||
                     "Like"}
