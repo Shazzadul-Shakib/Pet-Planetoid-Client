@@ -6,7 +6,6 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import LikedUsersModal from "../Modals/LikedUsersModal";
-import useOutsideClick from "../../Hooks/useOutsideClick";
 
 const PostCard = () => {
   const [data, isLoading, refetch] = useCreatePost();
@@ -74,7 +73,7 @@ const PostCard = () => {
             <div>
               <div
                 onClick={() => toggleLikedUserModal(post)}
-                className=" my-3 ml-2 flex gap-2 items-center"
+                className=" my-3 ml-2 flex gap-2 items-center cursor-pointer"
               >
                 <AiFillHeart className="text-[#FF8989] text-lg" />
                 {post.likes.length}
