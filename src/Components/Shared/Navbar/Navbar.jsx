@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../../src/assets/logo.svg";
 import profile from "../../../assets/profile.jpg";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import UpdateProfile from "../../UpdateProfile/UpdateProfile";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
@@ -38,7 +38,8 @@ const Navbar = () => {
   const from = location.state?.from?.pathname || "/";
 
   // Profilecard toggle state
-  const [showProfileCard, setShowProfileCard,profileCardRef] = useOutsideClick(false);
+  const [showProfileCard, setShowProfileCard, profileCardRef] =
+    useOutsideClick(false);
   const toggleProfileCard = () => {
     setShowProfileCard(!showProfileCard);
   };
