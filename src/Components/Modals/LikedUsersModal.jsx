@@ -16,7 +16,7 @@ const LikedUsersModal = ({ post, onclose }) => {
       className=" fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-lg overflow-hidden flex justify-center items-center "
     >
       {/* Modal body */}
-      <div className=" bg-white p-6 mx-3 md:mx-0 md:w-1/3 rounded-md">
+      <div className=" bg-white p-6 mx-3 w-full md:mx-0 md:w-1/3 rounded-md">
         <div className=" flex justify-between items-center mb-3">
           <div className="flex items-center gap-2">
             <AiFillHeart className=" text-2xl text-[#FF8989]" />

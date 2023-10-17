@@ -75,14 +75,24 @@ const PostCard = () => {
                 alt=""
               />
             </div>
-            {/* Like count */}
+
             <div>
-              <div
-                onClick={() => toggleLikedUserModal(post)}
-                className=" my-3 ml-2 flex gap-2 items-center cursor-pointer"
-              >
-                <AiFillHeart className="text-[#FF8989] text-lg" />
-                {post.likes.length}
+              {/* Like count */}
+              <div className="flex justify-between items-center">
+                <div
+                  onClick={() => toggleLikedUserModal(post)}
+                  className=" my-3 ml-2 flex gap-2 items-center cursor-pointer"
+                >
+                  <AiFillHeart className="text-[#FF8989] text-lg" />
+                  {post.likes.length}
+                </div>
+                {/* comments count */}
+                <div
+                  onClick={() => toggleCommentsModal(post)}
+                  className=" my-3 ml-2 flex gap-2 items-center cursor-pointer"
+                >
+                  0 comments
+                </div>
               </div>
               {openLikedUserModalId === post._id && (
                 <LikedUsersModal
