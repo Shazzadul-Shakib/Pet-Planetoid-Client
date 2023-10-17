@@ -6,15 +6,21 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import LikedUsersModal from "../Modals/LikedUsersModal";
+import CommentsModal from "../Modals/CommentsModal";
 
 const PostCard = () => {
   const [data, isLoading, refetch] = useCreatePost();
   const { user } = useContext(AuthContext);
   const [openLikedUserModalId, setOpenLikedUserModalId] = useState(null);
+  const [openCommentsModal,setOpenCommentsModal]=useState(null);
 
   const toggleLikedUserModal = (post) => {
     setOpenLikedUserModalId(post._id);
   };
+  // toggle comments modal
+  const toggleCommentsModal=(post)=>{
+    setOpenCommentsModal(post._id);
+  }
   // toggle like
   const toggleLike = async (post) => {
     post.likeduser = user;
@@ -109,10 +115,20 @@ const PostCard = () => {
                     "Like"}
                 </span>
               </button>
-              <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white">
+              <button
+                onClick={() => toggleCommentsModal(post)}
+                className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white"
+              >
                 <AiOutlineComment />{" "}
                 <span className="hidden md:block">Comment</span>
               </button>
+              {/* comment modal */}
+              {openCommentsModal === post._id && (
+                <CommentsModal
+                  post={post}
+                  onclose={() => setOpenCommentsModal(null)}
+                />
+              )}
               <button className=" px-2 py-1 rounded-md text-gray-600 w-1/3 text-center flex items-center justify-center gap-3 text-lg hover:bg-[#FF8989] hover:text-white">
                 <PiShareFatThin />{" "}
                 <span className="hidden md:block">Share</span>
