@@ -16,9 +16,9 @@ const CommentsModal = ({post,onclose}) => {
       <div
         onClick={outsideClick}
         id="container"
-        className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-lg overflow-hidden "
+        className="fixed inset-0 flex justify-center items-end bg-black bg-opacity-50 backdrop-blur-lg overflow-hidden "
       >
-        <div className="bg-white p-6 mx-3 w-full md:mx-0 md:w-1/3 rounded-md relative">
+        <div className="bg-white p-6 mx-3 mb-4 w-full md:mx-0 md:w-1/3 rounded-md relative">
           <div className=" flex justify-between items-center mb-3">
             <div className="flex items-center gap-2">
               {/* <AiFillHeart className=" text-2xl text-[#FF8989]" /> */}
