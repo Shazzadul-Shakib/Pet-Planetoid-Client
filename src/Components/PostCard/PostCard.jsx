@@ -21,29 +21,25 @@ const PostCard = () => {
   const toggleCommentsModal=(post)=>{
     setOpenCommentsModal(post._id);
   }
+
   // toggle like
   const toggleLike = async (post) => {
     post.likeduser = user;
     await axios
       .patch(`http://localhost:5000/get-posts/${post._id}`, post)
-      .then((res) => {
-        console.log(res);
-        refetch();
+      .then(() => {
+        refetch()
       });
   };
+
   if (isLoading) {
-    return <Loader />;
+    return <Loader/>;
   }
 
   return (
-    <div>
-      {data.length == 0 && (
-        <h1 className=" text-center mt-10 text-xl text-gray-500 font-semibold">
-          No posts yet
-        </h1>
-      )}
-      {/* User info */}
-      {data?.map((post) => (
+     <div>
+      {data && data.length > 0 ? (
+      data.map((post) => (
         <div key={post._id}>
           <div className=" p-5 w-5/6 bg-white shadow-lg rounded-lg m-4 mx-auto">
             <div className=" flex justify-between items-center">
@@ -109,18 +105,18 @@ const PostCard = () => {
               >
                 <AiOutlineHeart
                   className={` text-xl group-hover:text-white ${
-                    post.likes.find((item) => item.email === user.email) &&
+                    post.likes.find((item) => item?.email === user.email) &&
                     "hidden"
                   }`}
                 />
                 <AiFillHeart
                   className={`text-[#FF8989] group-hover:text-white text-xl ${
-                    post.likes.find((item) => item.email === user.email) ||
+                    post.likes.find((item) => item?.email === user.email) ||
                     "hidden"
                   }`}
                 />
                 <span className="hidden md:block group-hover:text-white">
-                  {(post.likes.find((item) => item.email === user.email) &&
+                  {(post.likes.find((item) => item?.email === user.email) &&
                     "Unlike") ||
                     "Like"}
                 </span>
@@ -146,8 +142,13 @@ const PostCard = () => {
             </div>
           </div>
         </div>
-      ))}
-    </div>
+      ))
+    ) : (
+      <h1 className="text-center mt-10 text-xl text-gray-500 font-semibold">
+        No posts yet
+      </h1>
+    )}
+  </div>
   );
 };
 

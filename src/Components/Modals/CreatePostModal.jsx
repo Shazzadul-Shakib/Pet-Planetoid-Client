@@ -31,6 +31,7 @@ const CreatePostModal = ({ onClose }) => {
       data.userName = user.displayName;
       data.userPhotoURL = user.photoURL;
       data.likes= []; 
+      data.comments= []; 
     }
     // Send data to server
     await fetch("http://localhost:5000/add-posts", {

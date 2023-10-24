@@ -4,9 +4,13 @@ import profile from "../../assets/profile.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import Loader from "../Shared/Loader/Loader";
+import useGetComments from "../../Hooks/useGetComments";
 
 const CommentsModal = ({ post, onclose }) => {
   const { user } = useContext(AuthContext);
+  const [data, isLoading, refetch] = useGetComments(post);
   const {
     handleSubmit,
     register,
@@ -14,16 +18,25 @@ const CommentsModal = ({ post, onclose }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    data.postId = post._id;
+    data.userName = user.displayName;
+    data.userPhotoURL = user.photoURL;
     reset();
-  }
+    await axios.post(`http://localhost:5000/add-comments`, data).then(() => {
+      refetch();
+    });
+  };
 
   const outsideClick = (e) => {
     if (e.target.id === "container") {
       onclose();
     }
   };
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div
@@ -34,7 +47,9 @@ const CommentsModal = ({ post, onclose }) => {
       <div className="bg-white p-6 mx-3 mt-14 w-full md:mx-0 md:w-1/3 rounded-md relative">
         <div className=" flex justify-between items-center mb-3">
           <div className="flex items-center gap-2">
-            <span className="text-md text-gray-600">0 Comments</span>
+            <span className="text-md text-gray-600">
+              {data.length} Comments
+            </span>
           </div>
           <RxCrossCircled
             onClick={onclose}
@@ -44,24 +59,28 @@ const CommentsModal = ({ post, onclose }) => {
         <hr className="border-t-2 mb-4" />
 
         {/* comment section */}
+
         <div className=" max-h-[45vh] overflow-y-scroll">
           {/* Comments */}
-          <div className="flex items-center gap-3 mb-4 ">
-            <div>
-              <img
-                className="h-10 w-10 rounded-full mr-2"
-                src={profile}
-                alt=""
-              />
+          {data.map((comment) => (
+            <div key={comment._id} className="flex items-center gap-3 mb-4 w-[95%]">
+              <div>
+                <img
+                  className="h-10 w-10 rounded-full mr-2"
+                  src={comment.userPhotoURL || profile}
+                  alt=""
+                />
+              </div>
+              <div className=" flex-grow  bg-[#ffe3e3] p-2 rounded-lg">
+                <h1 className="text-lg font-semibold text-gray-600">
+                  {comment.userName}
+                </h1>
+                <p>{comment.comment}</p>
+              </div>
             </div>
-            <div className=" bg-[#ffe3e3] p-2 rounded-lg">
-              <h1 className="text-lg font-semibold text-gray-600">
-                Shazzadul Islam Shakib
-              </h1>
-              <p>Here is the comment of the post be showen.</p>
-            </div>
-          </div>
+          ))}
         </div>
+
         <hr className="border-t-2 mb-8 mt-4" />
         {/* write comment here */}
         <div className=" flex items-center absolute bottom-2 w-[90%] mt-10">
@@ -76,6 +95,7 @@ const CommentsModal = ({ post, onclose }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 type="text"
+                autoComplete="off"
                 name="comment"
                 {...register("comment", { required: true })}
                 placeholder="Write your comment..."

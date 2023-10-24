@@ -9,6 +9,7 @@ const useCreatePost = () => {
       )
   );
   return [data, isLoading, refetch];
+  
 };
 
 export default useCreatePost;
