@@ -18,15 +18,17 @@ const CommentsModal = ({ post, onclose }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
-    data.postId = post._id;
-    data.userName = user.displayName;
-    data.userPhotoURL = user.photoURL;
+  const onSubmit = async (commentData) => {
+    console.log(commentData);
+    commentData.postId = post._id;
+    commentData.userName = user.displayName;
+    commentData.userPhotoURL = user.photoURL;
     reset();
-    await axios.post(`http://localhost:5000/add-comments`, data).then(() => {
-      refetch();
-    });
+    await axios
+      .post(`http://localhost:5000/add-comments`, commentData)
+      .then(() => {
+        refetch();
+      });
   };
 
   const outsideClick = (e) => {
@@ -34,7 +36,8 @@ const CommentsModal = ({ post, onclose }) => {
       onclose();
     }
   };
-  if (isLoading) {
+
+  if (isLoading || data=== null) {
     return <Loader />;
   }
 
@@ -48,7 +51,7 @@ const CommentsModal = ({ post, onclose }) => {
         <div className=" flex justify-between items-center mb-3">
           <div className="flex items-center gap-2">
             <span className="text-md text-gray-600">
-              {data.length} Comments
+              {data ? data.length : 0} Comments
             </span>
           </div>
           <RxCrossCircled
@@ -59,31 +62,37 @@ const CommentsModal = ({ post, onclose }) => {
         <hr className="border-t-2 mb-4" />
 
         {/* comment section */}
-
-        <div className=" max-h-[45vh] overflow-y-scroll">
+        <div className="max-h-[45vh] overflow-y-scroll">
           {/* Comments */}
-          {data.map((comment) => (
-            <div key={comment._id} className="flex items-center gap-3 mb-4 w-[95%]">
-              <div>
-                <img
-                  className="h-10 w-10 rounded-full mr-2"
-                  src={comment.userPhotoURL || profile}
-                  alt=""
-                />
+          {data && data.length > 0 ? (
+            data.map((comment) => (
+              <div
+                key={comment._id}
+                className="flex items-center gap-3 mb-4 w-[95%]"
+              >
+                <div>
+                  <img
+                    className="h-10 w-10 rounded-full mr-2"
+                    src={comment.userPhotoURL || profile}
+                    alt=""
+                  />
+                </div>
+                <div className=" flex-grow  bg-[#ffe3e3] p-2 rounded-lg">
+                  <h1 className="text-lg font-semibold text-gray-600">
+                    {comment.userName}
+                  </h1>
+                  <p>{comment.comment}</p>
+                </div>
               </div>
-              <div className=" flex-grow  bg-[#ffe3e3] p-2 rounded-lg">
-                <h1 className="text-lg font-semibold text-gray-600">
-                  {comment.userName}
-                </h1>
-                <p>{comment.comment}</p>
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No comments yet.</p>
+          )}
         </div>
 
         <hr className="border-t-2 mb-8 mt-4" />
         {/* write comment here */}
-        <div className=" flex items-center absolute bottom-2 w-[90%] mt-10">
+        <div className="flex items-center absolute bottom-2 w-[90%] mt-10">
           <div>
             <img
               className="h-10 w-10 rounded-full mr-2"
@@ -99,7 +108,7 @@ const CommentsModal = ({ post, onclose }) => {
                 name="comment"
                 {...register("comment", { required: true })}
                 placeholder="Write your comment..."
-                className=" bg-[#ffe3e3] w-full p-2 rounded-lg focus:outline-none focus:ring-0"
+                className="bg-[#ffe3e3] w-full p-2 rounded-lg focus:outline-none focus:ring-0"
               />
               <button type="submit" className="cursor-pointer">
                 <IoSend className="absolute top-3 right-7 text-gray-600 text-lg" />

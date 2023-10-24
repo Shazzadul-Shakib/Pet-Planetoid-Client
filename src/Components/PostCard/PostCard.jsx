@@ -82,13 +82,7 @@ const PostCard = () => {
                   <AiFillHeart className="text-[#FF8989] text-lg" />
                   {post.likes.length}
                 </div>
-                {/* comments count */}
-                <div
-                  onClick={() => toggleCommentsModal(post)}
-                  className=" my-3 ml-2 flex gap-2 items-center cursor-pointer"
-                >
-                  0 comments
-                </div>
+                
               </div>
               {openLikedUserModalId === post._id && (
                 <LikedUsersModal

@@ -19,7 +19,10 @@ const useGetComments = (post) => {
       }
     }
   );
-  return [data, isLoading, refetch];
+  const initializedData = data || [];
+  console.log(initializedData);
+
+  return [initializedData, isLoading, refetch];
 };
 
 export default useGetComments;
