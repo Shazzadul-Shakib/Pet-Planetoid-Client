@@ -1,27 +1,28 @@
 import { useQuery } from "react-query";
 
-const useGetComments = (post) => {
+const useUserPosts = (email) => {
   const { isLoading, data, refetch } = useQuery(
-    ["myComments", post._id],
+    ["userPosts", email],
     async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/get-comments?postId=${post._id}`
+          `http://localhost:5000/get-posts?email=${email}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch comments");
+          throw new Error("Failed to fetch user posts");
         }
-        const comments = await response.json();
-        
-        return comments;
+        const posts = await response.json();
+
+        return posts;
       } catch (error) {
-        throw error; 
+        throw error;
       }
     }
   );
   const initializedData = data || [];
+
   return [initializedData, isLoading, refetch];
+
 };
 
-export default useGetComments;
-
+export default useUserPosts;

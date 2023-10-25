@@ -24,7 +24,7 @@ const navItems = [
   {
     id: "3",
     name: "Shelters & Rescues",
-    path: "/shelters&rescues",
+    path: "/shelters_rescues",
   },
 ];
 

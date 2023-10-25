@@ -7,6 +7,7 @@ import ShelterRescue from "../Pages/Shelter&Rescue/ShelterRescue";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
 import ForgetPassword from "../Pages/Login/ForgetPassword";
+import UserProfile from "../Pages/UserProfile/UserProfile";
 
 
 export const router = createBrowserRouter([
@@ -39,8 +40,8 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/shelters&rescues",
-        element: <ShelterRescue />,
+        path: "/shelters_rescues",
+        element: <UserProfile/>,
       },
     ],
   },

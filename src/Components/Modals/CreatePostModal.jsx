@@ -29,6 +29,7 @@ const CreatePostModal = ({ onClose }) => {
       const PostImageURL = resposne.data.data.display_url;
       data.displayURL = PostImageURL;
       data.userName = user.displayName;
+      data.email = user.email;
       data.userPhotoURL = user.photoURL;
       data.likes= []; 
       data.comments= []; 

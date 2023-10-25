@@ -5,8 +5,10 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import CreatePostModal from "../../Components/Modals/CreatePostModal";
 import profile from "../../assets/profile.jpg";
+import useCreatePost from "../../Hooks/useCreatePost";
 
 const PetWorld = () => {
+  const [data, isLoading, refetch] = useCreatePost();
   const { user } = useContext(AuthContext);
   const [openModal, SetOpenModal] = useState(false);
 
@@ -24,7 +26,7 @@ const PetWorld = () => {
       <section className="  h-[81vh] flex justify-between flex-col-reverse  md:flex-row md:mx-0  md:gap-6 mt-4">
         {/* All post appear here */}
         <div className=" md:basis-[67%] h-full bg-white rounded-lg overflow-y-scroll">
-          <PostCard />
+          <PostCard data={data} isLoading={isLoading} refetch={refetch} />
         </div>
         {/* create post section here */}
         <div className=" md:basis-[30%] rounded-lg md:block md:px-5">
