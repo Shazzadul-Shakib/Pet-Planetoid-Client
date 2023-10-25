@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import LikedUsersModal from "../Modals/LikedUsersModal";
 import CommentsModal from "../Modals/CommentsModal";
+import { Link } from "react-router-dom";
 
 const PostCard = ({data, isLoading, refetch}) => {
   const { user } = useContext(AuthContext);
@@ -48,9 +49,9 @@ const PostCard = ({data, isLoading, refetch}) => {
                     src={post.userPhotoURL || profile}
                     alt=""
                   />
-                  <h1 className="text-xl font-bold text-gray-600">
+                  <Link to={`/user/${post.email}`} className="text-xl font-bold text-gray-600">
                     {post.userName}
-                  </h1>
+                  </Link>
                 </div>
                 <div className="border-2 border-[#FF8989] px-2 md:px-4 rounded-md mr-1 md:mr-6">
                   <h1 className="uppercase text-xs md:text-base">

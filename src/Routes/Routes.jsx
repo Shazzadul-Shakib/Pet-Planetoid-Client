@@ -41,7 +41,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/shelters_rescues",
-        element: <UserProfile/>,
+        element: <ShelterRescue />,
+      },
+      {
+        path: "/user/:email",
+        element: <UserProfile />,
       },
     ],
   },

@@ -37,12 +37,15 @@ const Availablepets = () => {
         </div>
         {/* Find more */}
         <div className="h-[260px] w-56  bg-[#FF8989] text-center text-white rounded-lg">
-          <Link className=" h-[260px] w-56  bg-[#FF8989] text-center text-white rounded-lg">
+          <Link
+            to="/petworld"
+            className=" h-[260px] w-56  bg-[#FF8989] text-center text-white rounded-lg"
+          >
             <div>
               <MdOutlinePets className=" h-52 w-56 rounded-lg " />
             </div>
             <div className=" py-2">
-              <p className=" text-xl font-semibold">Find More</p>
+              <h1 className=" text-xl font-semibold">Find More</h1>
             </div>
           </Link>
         </div>
