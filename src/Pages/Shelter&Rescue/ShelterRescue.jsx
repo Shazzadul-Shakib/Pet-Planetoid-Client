@@ -1,18 +1,41 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Helmet } from "react-helmet-async";
-import image from "../../assets/Under construction.svg";
+import VetInfo from "../../Components/VetInfo/VetInfo";
+import Loader from "../../Components/Shared/Loader/Loader";
 
 const ShelterRescue = () => {
-    return (
-      <div>
-        {/* Helmet to change title over browser */}
-        <Helmet>
-          <title>Pet Planetoid | Shelter&Rescue</title>
-        </Helmet>
-        <div className=" h-[100vh]">
-          <img className=" h-[80%] w-full" src={image} alt="" />
-        </div>
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/get-vetinfo")
+      .then((response) => {
+        setData(response.data);
+        setLoading(false); // Set loading to false on successful data fetch
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false); // Set loading to false on error
+      });
+  }, []);
+
+  return (
+    <div className="max-w-screen-lg mx-auto">
+      {/* Helmet to change title over browser */}
+      <Helmet>
+        <title>Pet Planetoid | Shelter&Rescue</title>
+      </Helmet>
+      <div className="mx-5 grid grid-cols-2 gap-5 my-5 ">
+        {loading ? (
+          <Loader />
+        ) : (
+          data.map((info) => <VetInfo key={info.id} data={info} />)
+        )}
       </div>
-    );
+    </div>
+  );
 };
 
 export default ShelterRescue;

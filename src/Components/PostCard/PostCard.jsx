@@ -1,7 +1,7 @@
 import { AiOutlineHeart, AiOutlineComment, AiFillHeart } from "react-icons/ai";
 import { PiShareFatThin } from "react-icons/pi";
 import Loader from "../Shared/Loader/Loader";
-import profile from '../../assets/profile.jpg';
+import profile from "../../assets/profile.jpg";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
@@ -9,7 +9,7 @@ import LikedUsersModal from "../Modals/LikedUsersModal";
 import CommentsModal from "../Modals/CommentsModal";
 import { Link } from "react-router-dom";
 
-const PostCard = ({data, isLoading, refetch}) => {
+const PostCard = ({ data, isLoading, refetch }) => {
   const { user } = useContext(AuthContext);
   const [openLikedUserModalId, setOpenLikedUserModalId] = useState(null);
   const [openCommentsModal, setOpenCommentsModal] = useState(null);
@@ -49,7 +49,10 @@ const PostCard = ({data, isLoading, refetch}) => {
                     src={post.userPhotoURL || profile}
                     alt=""
                   />
-                  <Link to={`/user/${post.email}`} className="text-xl font-bold text-gray-600">
+                  <Link
+                    to={`/user/${post.email}`}
+                    className="text-xl font-bold text-gray-600"
+                  >
                     {post.userName}
                   </Link>
                 </div>
