@@ -120,21 +120,13 @@ const Navbar = () => {
                   />
                   {/* Profile card */}
                   {showProfileCard && (
-                    <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white  h-[300px] w-[300px] rounded-lg ">
+                    <div className=" absolute top-full z-10 right-3 flex flex-col items-center bg-[#FF8989] text-white w-[300px] rounded-lg ">
                       <div>
-                        {/* Image div */}
-                        <div className=" flex justify-center">
-                          <img
-                            className=" my-6 h-24 w-24 rounded-full"
-                            src={user.photoURL || profile}
-                            alt="DP"
-                          />
-                        </div>
-                        <div className=" text-center">
+                        <div className=" text-center mt-5">
                           <h3 className=" text-xl">{user?.displayName}</h3>
                           <h4 className=" text-sm">{user?.email}</h4>
                         </div>
-                        <div className="mt-10 flex gap-4">
+                        <div className="my-5 flex gap-4">
                           <button
                             onClick={() => setOpenModal(true)}
                             className="py-1 px-2 text-md border-2 border-white rounded-md flex justify-center items-center gap-2"

@@ -30,7 +30,10 @@ const Iconbar = () => {
             <p className=" text-xl">Birds</p>
           </div>
         </Link>
-        <Link className=" flex  flex-col justify-center items-center h-[160px] w-[160px] md:h-[188px] md:w-[188px] rounded-lg bg-[#FFEADD] text-[#FF6666] shadow-lg">
+        <Link
+          to="/shelters_rescues"
+          className=" flex  flex-col justify-center items-center h-[160px] w-[160px] md:h-[188px] md:w-[188px] rounded-lg bg-[#FFEADD] text-[#FF6666] shadow-lg"
+        >
           <div>
             <BsHouseHeart className=" text-6xl" />
           </div>
