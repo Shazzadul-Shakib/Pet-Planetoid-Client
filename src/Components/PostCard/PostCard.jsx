@@ -44,7 +44,7 @@ const PostCard = ({ data, isLoading, refetch }) => {
       {data && data.length > 0 ? (
         data.map((post) => (
           <div key={post._id}>
-            <div className=" p-5 w-5/6 bg-white shadow-lg rounded-lg m-4 mx-auto">
+            <div className=" p-5 md:w-5/6 bg-white shadow-lg rounded-lg m-4 mx-auto">
               <div className=" flex justify-between items-center">
                 <div className="flex items-center my-3">
                   <img

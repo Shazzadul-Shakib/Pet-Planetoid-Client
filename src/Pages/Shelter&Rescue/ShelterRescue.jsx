@@ -27,7 +27,7 @@ const ShelterRescue = () => {
       <Helmet>
         <title>Pet Planetoid | Shelter&Rescue</title>
       </Helmet>
-      <div className="mx-5 grid grid-cols-2 gap-5 my-5 ">
+      <div className="mx-5 grid grid-cols-1 gap-5 my-5 md:grid-cols-2 ">
         {loading ? (
           <Loader />
         ) : (

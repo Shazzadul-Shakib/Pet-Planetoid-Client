@@ -16,12 +16,12 @@ const UserProfile = () => {
 
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <div className="h-[81vh] flex justify-between md:flex-row md:mx-0 md:gap-6 mt-4">
-        <div className="md:basis-[67%] h-full bg-white rounded-lg overflow-y-scroll mr-10">
+      <div className="md:h-[81vh] flex justify-center md:justify-between md:flex-row md:mx-0 md:gap-6 mt-4">
+        <div className="m-4 md:basis-[67%] h-full bg-white rounded-lg overflow-y-scroll md:mr-10">
           <PostCard data={data} isLoading={isLoading} refetch={refetch} />
         </div>
         {/* Profile card section */}
-        <div className="md:basis-[30%] rounded-lg md:block md:px-5 ml-10">
+        <div className="hidden rounded-lg md:block md:px-5 ml-10 md:basis-[30%] ">
           <div className="flex flex-col items-center bg-[#FF8989] text-white h-[400px] w-[400px] rounded-lg">
             {Array.from(uniqueData).map((userName) => {
               const user = data.find((item) => item.userName === userName);
