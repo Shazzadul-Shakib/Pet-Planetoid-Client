@@ -10,7 +10,7 @@ const ShelterRescue = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get-vetinfo")
+      .get("https://pet-planetoid-server.vercel.app/get-vetinfo")
       .then((response) => {
         setData(response.data);
         setLoading(false); // Set loading to false on successful data fetch

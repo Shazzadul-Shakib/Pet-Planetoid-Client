@@ -5,7 +5,6 @@ import Footer from "../Components/Shared/Footer/Footer";
 const Main = () => {
   const location = useLocation();
   const path = location.pathname;
-  console.log(path);
   const requiredPath1 = "/petworld";
 
   return (

@@ -6,7 +6,7 @@ const useUserPosts = (email) => {
     async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/get-posts?email=${email}`
+          `https://pet-planetoid-server.vercel.app/get-posts?email=${email}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user posts");
@@ -22,7 +22,6 @@ const useUserPosts = (email) => {
   const initializedData = data || [];
 
   return [initializedData, isLoading, refetch];
-
 };
 
 export default useUserPosts;

@@ -19,13 +19,12 @@ const CommentsModal = ({ post, onclose }) => {
   } = useForm();
 
   const onSubmit = async (commentData) => {
-    console.log(commentData);
     commentData.postId = post._id;
     commentData.userName = user.displayName;
     commentData.userPhotoURL = user.photoURL;
     reset();
     await axios
-      .post(`http://localhost:5000/add-comments`, commentData)
+      .post(`https://pet-planetoid-server.vercel.app/add-comments`, commentData)
       .then(() => {
         refetch();
       });
@@ -37,7 +36,7 @@ const CommentsModal = ({ post, onclose }) => {
     }
   };
 
-  if (isLoading || data=== null) {
+  if (isLoading || data === null) {
     return <Loader />;
   }
 

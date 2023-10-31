@@ -18,11 +18,9 @@ const CreatePostModal = ({ onClose }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data.image[0]);
     // Get Image URL
     const formData = new FormData();
     formData.append("image", data.image[0]);
-    console.log(formData);
     const resposne = await axios.post(
       "https://api.imgbb.com/1/upload?key=5253c30256b114e1a0e9185fe3cf6230",
       formData
@@ -33,11 +31,11 @@ const CreatePostModal = ({ onClose }) => {
       data.userName = user.displayName;
       data.email = user.email;
       data.userPhotoURL = user.photoURL;
-      data.likes= []; 
-      data.comments= []; 
+      data.likes = [];
+      data.comments = [];
     }
     // Send data to server
-    await fetch("http://localhost:5000/add-posts", {
+    await fetch("https://pet-planetoid-server.vercel.app/add-posts", {
       method: "POST",
       headers: {
         "content-type": "application/json",

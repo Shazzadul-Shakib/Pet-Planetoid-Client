@@ -26,7 +26,10 @@ const PostCard = ({ data, isLoading, refetch }) => {
   const toggleLike = async (post) => {
     post.likeduser = user;
     await axios
-      .patch(`http://localhost:5000/get-posts/${post._id}`, post)
+      .patch(
+        `https://pet-planetoid-server.vercel.app/get-posts/${post._id}`,
+        post
+      )
       .then(() => {
         refetch();
       });
