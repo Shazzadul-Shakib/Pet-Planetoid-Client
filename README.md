@@ -1,8 +1,8 @@
-# React + Vite
+# Pet-Planetoid
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a fully responsive and functional web application where you can add a post with image of your pet and like and comments to these posts as well.
 
-Currently, two official plugins are available:
+You can experience routing and navigation by react router, again a protected route which you can not access without sigin. and again you have to verify your email for sign in . in the protected route you can create a post or view others posts and make likes and comments to them . Again you can visit their profile to see their posts and personal info the have provided.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I have used react and tailwind for front end and express and mongodb for both server and database.
+Used firebase for authentication.React-querry for fetch and refetching data from the server.
